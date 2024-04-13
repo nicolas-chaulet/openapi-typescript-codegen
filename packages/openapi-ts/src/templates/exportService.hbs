@@ -19,24 +19,24 @@ export class {{{name}}}{{{@root.$config.postfixServices}}} {
 	{{#equals @root.$config.client 'angular'}}
 	public {{{name}}}({{{nameOperationDataType 'req' this}}}): Observable<{{{nameOperationDataType 'res' this}}}> {
 		{{{dataDestructure this}}}
-		return this.httpRequest.request({{{toRequestOptions this}}});
+		return this.httpRequest.request(mergeDeep({{{toRequestOptions this}}}, options));
 	}
 	{{else}}
 	public {{{name}}}({{{nameOperationDataType 'req' this}}}): CancelablePromise<{{{nameOperationDataType 'res' this}}}> {
 		{{{dataDestructure this}}}
-		return this.httpRequest.request({{{toRequestOptions this}}});
+		return this.httpRequest.request(mergeDeep({{{toRequestOptions this}}}, options));
 	}
 	{{/equals}}
 	{{else}}
 	{{#equals @root.$config.client 'angular'}}
 	public {{{name}}}({{{nameOperationDataType 'req' this}}}): Observable<{{{nameOperationDataType 'res' this}}}> {
 		{{{dataDestructure this}}}
-		return __request(OpenAPI, this.http, {{{toRequestOptions this}}});
+		return __request(OpenAPI, mergeDeep({{{toRequestOptions this}}}, options));
 	}
 	{{else}}
 	public static {{{name}}}({{{nameOperationDataType 'req' this}}}): CancelablePromise<{{{nameOperationDataType 'res' this}}}> {
 		{{{dataDestructure this}}}
-		return __request(OpenAPI, {{{toRequestOptions this}}});
+		return __request(OpenAPI, mergeDeep({{{toRequestOptions this}}}, options));
 	}
 	{{/equals}}
 	{{/if}}

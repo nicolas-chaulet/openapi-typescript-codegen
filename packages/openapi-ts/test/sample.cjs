@@ -9,7 +9,7 @@ const main = async () => {
         output: './test/generated/v3/',
     };
 
-    const { createClient } = await import(path.resolve(process.cwd(), 'dist/index.js'));
+    const { createClient } = await import(path.resolve(process.cwd(), 'dist/node/index.js'));
     await createClient(config);
 };
 

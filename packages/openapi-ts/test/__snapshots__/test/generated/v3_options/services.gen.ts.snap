@@ -3,6 +3,8 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
+import type { ApiRequestOptions } from './core/ApiRequestOptions';
+import { mergeDeep } from './core/request';
 import type { $OpenApiTs } from './models.gen';
 
 export class DefaultsService {
@@ -10,47 +12,62 @@ export class DefaultsService {
      * @throws ApiError
      */
     public static callWithDefaultParameters(
-        data: $OpenApiTs['/api/v{api-version}/defaults']['get']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/defaults']['get']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
         const { parameterString, parameterNumber, parameterBoolean, parameterEnum, parameterModel } = data;
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterString,
-                parameterNumber,
-                parameterBoolean,
-                parameterEnum,
-                parameterModel,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterString,
+                        parameterNumber,
+                        parameterBoolean,
+                        parameterEnum,
+                        parameterModel,
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public static callWithDefaultOptionalParameters(
-        data: $OpenApiTs['/api/v{api-version}/defaults']['post']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/defaults']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
         const { parameterString, parameterNumber, parameterBoolean, parameterEnum, parameterModel } = data;
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterString,
-                parameterNumber,
-                parameterBoolean,
-                parameterEnum,
-                parameterModel,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterString,
+                        parameterNumber,
+                        parameterBoolean,
+                        parameterEnum,
+                        parameterModel,
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public static callToTestOrderOfParams(
-        data: $OpenApiTs['/api/v{api-version}/defaults']['put']['req']
+        data: $OpenApiTs['/api/v{api-version}/defaults']['put']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
         const {
             parameterStringWithNoDefault,
@@ -62,19 +79,25 @@ export class DefaultsService {
             parameterStringNullableWithNoDefault,
             parameterStringNullableWithDefault,
         } = data;
-        return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterOptionalStringWithDefault,
-                parameterOptionalStringWithEmptyDefault,
-                parameterOptionalStringWithNoDefault,
-                parameterStringWithDefault,
-                parameterStringWithEmptyDefault,
-                parameterStringWithNoDefault,
-                parameterStringNullableWithNoDefault,
-                parameterStringNullableWithDefault,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterOptionalStringWithDefault,
+                        parameterOptionalStringWithEmptyDefault,
+                        parameterOptionalStringWithNoDefault,
+                        parameterStringWithDefault,
+                        parameterStringWithEmptyDefault,
+                        parameterStringWithNoDefault,
+                        parameterStringNullableWithNoDefault,
+                        parameterStringNullableWithDefault,
+                    },
+                },
+                options
+            )
+        );
     }
 }

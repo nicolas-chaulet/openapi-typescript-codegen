@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
+import type { ApiRequestOptions } from './core/ApiRequestOptions';
+import { mergeDeep } from './core/request';
 import type { $OpenApiTs } from './models.gen';
 
 @Injectable({
@@ -16,11 +18,17 @@ export class DefaultService {
     /**
      * @throws ApiError
      */
-    public serviceWithEmptyTag(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/no-tag',
-        });
+    public serviceWithEmptyTag(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/no-tag',
+                },
+                options
+            )
+        );
     }
 
     /**
@@ -28,15 +36,22 @@ export class DefaultService {
      * @throws ApiError
      */
     public postServiceWithEmptyTag(
-        data: $OpenApiTs['/api/v{api-version}/no-tag']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/no-tag']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/no-tag']['post']['res'][200]> {
         const { requestBody } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/no-tag',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/no-tag',
+                    body: requestBody,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -50,83 +65,131 @@ export class SimpleService {
      * @returns Model_From_Zendesk Success
      * @throws ApiError
      */
-    public apiVVersionOdataControllerCount(): Observable<
-        $OpenApiTs['/api/v{api-version}/simple/$count']['get']['res'][200]
-    > {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/simple/$count',
-        });
+    public apiVVersionOdataControllerCount(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/simple/$count']['get']['res'][200]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/simple/$count',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public getCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/simple',
-        });
+    public getCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public putCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/v{api-version}/simple',
-        });
+    public putCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public postCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/simple',
-        });
+    public postCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public deleteCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'DELETE',
-            url: '/api/v{api-version}/simple',
-        });
+    public deleteCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'DELETE',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public optionsCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'OPTIONS',
-            url: '/api/v{api-version}/simple',
-        });
+    public optionsCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'OPTIONS',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public headCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'HEAD',
-            url: '/api/v{api-version}/simple',
-        });
+    public headCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'HEAD',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public patchCallWithoutParametersAndResponse(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'PATCH',
-            url: '/api/v{api-version}/simple',
-        });
+    public patchCallWithoutParametersAndResponse(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PATCH',
+                    url: '/api/v{api-version}/simple',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -139,23 +202,33 @@ export class ParametersService {
     /**
      * @throws ApiError
      */
-    public deleteFoo(data: $OpenApiTs['/api/v{api-version}/foo/{foo}/bar/{bar}']['delete']['req']): Observable<void> {
+    public deleteFoo(
+        data: $OpenApiTs['/api/v{api-version}/foo/{foo}/bar/{bar}']['delete']['req'],
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<void> {
         const { foo, bar } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'DELETE',
-            url: '/api/v{api-version}/foo/{foo}/bar/{bar}',
-            path: {
-                foo,
-                bar,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'DELETE',
+                    url: '/api/v{api-version}/foo/{foo}/bar/{bar}',
+                    path: {
+                        foo,
+                        bar,
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public callWithParameters(
-        data: $OpenApiTs['/api/v{api-version}/parameters/{parameterPath}']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/parameters/{parameterPath}']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const {
             parameterHeader,
@@ -167,36 +240,43 @@ export class ParametersService {
             requestBody,
             fooRefEnum,
         } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/parameters/{parameterPath}',
-            path: {
-                parameterPath,
-            },
-            cookies: {
-                parameterCookie,
-            },
-            headers: {
-                parameterHeader,
-            },
-            query: {
-                foo_ref_enum: fooRefEnum,
-                foo_all_of_enum: fooAllOfEnum,
-                parameterQuery,
-            },
-            formData: {
-                parameterForm,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/parameters/{parameterPath}',
+                    path: {
+                        parameterPath,
+                    },
+                    cookies: {
+                        parameterCookie,
+                    },
+                    headers: {
+                        parameterHeader,
+                    },
+                    query: {
+                        foo_ref_enum: fooRefEnum,
+                        foo_all_of_enum: fooAllOfEnum,
+                        parameterQuery,
+                    },
+                    formData: {
+                        parameterForm,
+                    },
+                    body: requestBody,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public callWithWeirdParameterNames(
-        data: $OpenApiTs['/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const {
             parameterHeader,
@@ -209,66 +289,86 @@ export class ParametersService {
             parameterPath3,
             _default,
         } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}',
-            path: {
-                'parameter.path.1': parameterPath1,
-                'parameter-path-2': parameterPath2,
-                'PARAMETER-PATH-3': parameterPath3,
-            },
-            cookies: {
-                'PARAMETER-COOKIE': parameterCookie,
-            },
-            headers: {
-                'parameter.header': parameterHeader,
-            },
-            query: {
-                default: _default,
-                'parameter-query': parameterQuery,
-            },
-            formData: {
-                parameter_form: parameterForm,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}',
+                    path: {
+                        'parameter.path.1': parameterPath1,
+                        'parameter-path-2': parameterPath2,
+                        'PARAMETER-PATH-3': parameterPath3,
+                    },
+                    cookies: {
+                        'PARAMETER-COOKIE': parameterCookie,
+                    },
+                    headers: {
+                        'parameter.header': parameterHeader,
+                    },
+                    query: {
+                        default: _default,
+                        'parameter-query': parameterQuery,
+                    },
+                    formData: {
+                        parameter_form: parameterForm,
+                    },
+                    body: requestBody,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public getCallWithOptionalParam(
-        data: $OpenApiTs['/api/v{api-version}/parameters/']['get']['req']
+        data: $OpenApiTs['/api/v{api-version}/parameters/']['get']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { requestBody, parameter } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/parameters/',
-            query: {
-                parameter,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/parameters/',
+                    query: {
+                        parameter,
+                    },
+                    body: requestBody,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public postCallWithOptionalParam(
-        data: $OpenApiTs['/api/v{api-version}/parameters/']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/parameters/']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { parameter, requestBody } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/parameters/',
-            query: {
-                parameter,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/parameters/',
+                    query: {
+                        parameter,
+                    },
+                    body: requestBody,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -282,7 +382,8 @@ export class DescriptionsService {
      * @throws ApiError
      */
     public callWithDescriptions(
-        data: $OpenApiTs['/api/v{api-version}/descriptions/']['post']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/descriptions/']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const {
             parameterWithBreaks,
@@ -292,18 +393,24 @@ export class DescriptionsService {
             parameterWithQuotes,
             parameterWithReservedCharacters,
         } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/descriptions/',
-            query: {
-                parameterWithBreaks,
-                parameterWithBackticks,
-                parameterWithSlashes,
-                parameterWithExpressionPlaceholders,
-                parameterWithQuotes,
-                parameterWithReservedCharacters,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/descriptions/',
+                    query: {
+                        parameterWithBreaks,
+                        parameterWithBackticks,
+                        parameterWithSlashes,
+                        parameterWithExpressionPlaceholders,
+                        parameterWithQuotes,
+                        parameterWithReservedCharacters,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -318,16 +425,23 @@ export class DeprecatedService {
      * @throws ApiError
      */
     public deprecatedCall(
-        data: $OpenApiTs['/api/v{api-version}/parameters/deprecated']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/parameters/deprecated']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { parameter } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/parameters/deprecated',
-            headers: {
-                parameter,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/parameters/deprecated',
+                    headers: {
+                        parameter,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -341,18 +455,25 @@ export class RequestBodyService {
      * @throws ApiError
      */
     public postApiRequestBody(
-        data: $OpenApiTs['/api/v{api-version}/requestBody/']['post']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/requestBody/']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { parameter, foo } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/requestBody/',
-            query: {
-                parameter,
-            },
-            body: foo,
-            mediaType: 'application/json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/requestBody/',
+                    query: {
+                        parameter,
+                    },
+                    body: foo,
+                    mediaType: 'application/json',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -365,17 +486,26 @@ export class FormDataService {
     /**
      * @throws ApiError
      */
-    public postApiFormData(data: $OpenApiTs['/api/v{api-version}/formData/']['post']['req'] = {}): Observable<void> {
+    public postApiFormData(
+        data: $OpenApiTs['/api/v{api-version}/formData/']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<void> {
         const { parameter, formData } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/formData/',
-            query: {
-                parameter,
-            },
-            formData,
-            mediaType: 'multipart/form-data',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/formData/',
+                    query: {
+                        parameter,
+                    },
+                    formData,
+                    mediaType: 'multipart/form-data',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -389,46 +519,63 @@ export class DefaultsService {
      * @throws ApiError
      */
     public callWithDefaultParameters(
-        data: $OpenApiTs['/api/v{api-version}/defaults']['get']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/defaults']['get']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { parameterString, parameterNumber, parameterBoolean, parameterEnum, parameterModel } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterString,
-                parameterNumber,
-                parameterBoolean,
-                parameterEnum,
-                parameterModel,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterString,
+                        parameterNumber,
+                        parameterBoolean,
+                        parameterEnum,
+                        parameterModel,
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
     public callWithDefaultOptionalParameters(
-        data: $OpenApiTs['/api/v{api-version}/defaults']['post']['req'] = {}
+        data: $OpenApiTs['/api/v{api-version}/defaults']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<void> {
         const { parameterString, parameterNumber, parameterBoolean, parameterEnum, parameterModel } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterString,
-                parameterNumber,
-                parameterBoolean,
-                parameterEnum,
-                parameterModel,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterString,
+                        parameterNumber,
+                        parameterBoolean,
+                        parameterEnum,
+                        parameterModel,
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public callToTestOrderOfParams(data: $OpenApiTs['/api/v{api-version}/defaults']['put']['req']): Observable<void> {
+    public callToTestOrderOfParams(
+        data: $OpenApiTs['/api/v{api-version}/defaults']['put']['req'],
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<void> {
         const {
             parameterStringWithNoDefault,
             parameterOptionalStringWithDefault,
@@ -439,20 +586,26 @@ export class DefaultsService {
             parameterStringNullableWithNoDefault,
             parameterStringNullableWithDefault,
         } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/v{api-version}/defaults',
-            query: {
-                parameterOptionalStringWithDefault,
-                parameterOptionalStringWithEmptyDefault,
-                parameterOptionalStringWithNoDefault,
-                parameterStringWithDefault,
-                parameterStringWithEmptyDefault,
-                parameterStringWithNoDefault,
-                parameterStringNullableWithNoDefault,
-                parameterStringNullableWithDefault,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/defaults',
+                    query: {
+                        parameterOptionalStringWithDefault,
+                        parameterOptionalStringWithEmptyDefault,
+                        parameterOptionalStringWithNoDefault,
+                        parameterStringWithDefault,
+                        parameterStringWithEmptyDefault,
+                        parameterStringWithNoDefault,
+                        parameterStringNullableWithNoDefault,
+                        parameterStringNullableWithDefault,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -465,41 +618,65 @@ export class DuplicateService {
     /**
      * @throws ApiError
      */
-    public duplicateName(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/duplicate',
-        });
+    public duplicateName(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/duplicate',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public duplicateName1(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/duplicate',
-        });
+    public duplicateName1(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/duplicate',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public duplicateName2(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/v{api-version}/duplicate',
-        });
+    public duplicateName2(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/duplicate',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @throws ApiError
      */
-    public duplicateName3(): Observable<void> {
-        return __request(OpenAPI, this.http, {
-            method: 'DELETE',
-            url: '/api/v{api-version}/duplicate',
-        });
+    public duplicateName3(options: Partial<ApiRequestOptions> = {}): Observable<void> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'DELETE',
+                    url: '/api/v{api-version}/duplicate',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -513,11 +690,19 @@ export class NoContentService {
      * @returns void Success
      * @throws ApiError
      */
-    public callWithNoContentResponse(): Observable<$OpenApiTs['/api/v{api-version}/no-content']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/no-content',
-        });
+    public callWithNoContentResponse(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/no-content']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/no-content',
+                },
+                options
+            )
+        );
     }
 
     /**
@@ -525,14 +710,22 @@ export class NoContentService {
      * @returns void Success
      * @throws ApiError
      */
-    public callWithResponseAndNoContentResponse(): Observable<
+    public callWithResponseAndNoContentResponse(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<
         | $OpenApiTs['/api/v{api-version}/multiple-tags/response-and-no-content']['get']['res'][200]
         | $OpenApiTs['/api/v{api-version}/multiple-tags/response-and-no-content']['get']['res'][204]
     > {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/response-and-no-content',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/response-and-no-content',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -547,41 +740,65 @@ export class ResponseService {
      * @returns void Success
      * @throws ApiError
      */
-    public callWithResponseAndNoContentResponse(): Observable<
+    public callWithResponseAndNoContentResponse(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<
         | $OpenApiTs['/api/v{api-version}/multiple-tags/response-and-no-content']['get']['res'][200]
         | $OpenApiTs['/api/v{api-version}/multiple-tags/response-and-no-content']['get']['res'][204]
     > {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/response-and-no-content',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/response-and-no-content',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @returns ModelWithString
      * @throws ApiError
      */
-    public callWithResponse(): Observable<$OpenApiTs['/api/v{api-version}/response']['get']['res'][200]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/response',
-        });
+    public callWithResponse(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/response']['get']['res'][200]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/response',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @returns ModelWithString Message for default response
      * @throws ApiError
      */
-    public callWithDuplicateResponses(): Observable<$OpenApiTs['/api/v{api-version}/response']['post']['res'][200]> {
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/response',
-            errors: {
-                500: 'Message for 500 error',
-                501: 'Message for 501 error',
-                502: 'Message for 502 error',
-            },
-        });
+    public callWithDuplicateResponses(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/response']['post']['res'][200]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/response',
+                    errors: {
+                        500: 'Message for 500 error',
+                        501: 'Message for 501 error',
+                        502: 'Message for 502 error',
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
@@ -591,21 +808,29 @@ export class ResponseService {
      * @returns ModelThatExtendsExtends Message for 202 response
      * @throws ApiError
      */
-    public callWithResponses(): Observable<
+    public callWithResponses(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<
         | $OpenApiTs['/api/v{api-version}/response']['put']['res'][200]
         | $OpenApiTs['/api/v{api-version}/response']['put']['res'][200]
         | $OpenApiTs['/api/v{api-version}/response']['put']['res'][201]
         | $OpenApiTs['/api/v{api-version}/response']['put']['res'][202]
     > {
-        return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/v{api-version}/response',
-            errors: {
-                500: 'Message for 500 error',
-                501: 'Message for 501 error',
-                502: 'Message for 502 error',
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/response',
+                    errors: {
+                        500: 'Message for 500 error',
+                        501: 'Message for 501 error',
+                        502: 'Message for 502 error',
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -619,22 +844,38 @@ export class MultipleTags1Service {
      * @returns void Success
      * @throws ApiError
      */
-    public dummyA(): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/a']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/a',
-        });
+    public dummyA(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/a']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/a',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/b',
-        });
+    public dummyB(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/b',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -648,22 +889,38 @@ export class MultipleTags2Service {
      * @returns void Success
      * @throws ApiError
      */
-    public dummyA(): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/a']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/a',
-        });
+    public dummyA(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/a']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/a',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/b',
-        });
+    public dummyB(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/b',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -677,11 +934,19 @@ export class MultipleTags3Service {
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multiple-tags/b',
-        });
+    public dummyB(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multiple-tags/b']['get']['res'][204]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multiple-tags/b',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -694,20 +959,29 @@ export class CollectionFormatService {
     /**
      * @throws ApiError
      */
-    public collectionFormat(data: $OpenApiTs['/api/v{api-version}/collectionFormat']['get']['req']): Observable<void> {
+    public collectionFormat(
+        data: $OpenApiTs['/api/v{api-version}/collectionFormat']['get']['req'],
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<void> {
         const { parameterArrayCsv, parameterArraySsv, parameterArrayTsv, parameterArrayPipes, parameterArrayMulti } =
             data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/collectionFormat',
-            query: {
-                parameterArrayCSV: parameterArrayCsv,
-                parameterArraySSV: parameterArraySsv,
-                parameterArrayTSV: parameterArrayTsv,
-                parameterArrayPipes,
-                parameterArrayMulti,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/collectionFormat',
+                    query: {
+                        parameterArrayCSV: parameterArrayCsv,
+                        parameterArraySSV: parameterArraySsv,
+                        parameterArrayTSV: parameterArrayTsv,
+                        parameterArrayPipes,
+                        parameterArrayMulti,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -725,7 +999,8 @@ export class TypesService {
      * @throws ApiError
      */
     public types(
-        data: $OpenApiTs['/api/v{api-version}/types']['get']['req']
+        data: $OpenApiTs['/api/v{api-version}/types']['get']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<
         | $OpenApiTs['/api/v{api-version}/types']['get']['res'][200]
         | $OpenApiTs['/api/v{api-version}/types']['get']['res'][201]
@@ -742,22 +1017,28 @@ export class TypesService {
             parameterObject,
             id,
         } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/types',
-            path: {
-                id,
-            },
-            query: {
-                parameterNumber,
-                parameterString,
-                parameterBoolean,
-                parameterObject,
-                parameterArray,
-                parameterDictionary,
-                parameterEnum,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/types',
+                    path: {
+                        id,
+                    },
+                    query: {
+                        parameterNumber,
+                        parameterString,
+                        parameterBoolean,
+                        parameterObject,
+                        parameterArray,
+                        parameterDictionary,
+                        parameterEnum,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -772,16 +1053,23 @@ export class UploadService {
      * @throws ApiError
      */
     public uploadFile(
-        data: $OpenApiTs['/api/v{api-version}/upload']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/upload']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/upload']['post']['res'][200]> {
         const { file } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/upload',
-            formData: {
-                file,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/upload',
+                    formData: {
+                        file,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -796,16 +1084,23 @@ export class FileResponseService {
      * @throws ApiError
      */
     public fileResponse(
-        data: $OpenApiTs['/api/v{api-version}/file/{id}']['get']['req']
+        data: $OpenApiTs['/api/v{api-version}/file/{id}']['get']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/file/{id}']['get']['res'][200]> {
         const { id } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/file/{id}',
-            path: {
-                id,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/file/{id}',
+                    path: {
+                        id,
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -820,21 +1115,28 @@ export class ComplexService {
      * @throws ApiError
      */
     public complexTypes(
-        data: $OpenApiTs['/api/v{api-version}/complex']['get']['req']
+        data: $OpenApiTs['/api/v{api-version}/complex']['get']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/complex']['get']['res'][200]> {
         const { parameterObject, parameterReference } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/complex',
-            query: {
-                parameterObject,
-                parameterReference,
-            },
-            errors: {
-                400: '400 server error',
-                500: '500 server error',
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/complex',
+                    query: {
+                        parameterObject,
+                        parameterReference,
+                    },
+                    errors: {
+                        400: '400 server error',
+                        500: '500 server error',
+                    },
+                },
+                options
+            )
+        );
     }
 
     /**
@@ -842,18 +1144,25 @@ export class ComplexService {
      * @throws ApiError
      */
     public complexParams(
-        data: $OpenApiTs['/api/v{api-version}/complex/{id}']['put']['req']
+        data: $OpenApiTs['/api/v{api-version}/complex/{id}']['put']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/complex/{id}']['put']['res'][200]> {
         const { id, requestBody } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/v{api-version}/complex/{id}',
-            path: {
-                id,
-            },
-            body: requestBody,
-            mediaType: 'application/json-patch+json',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'PUT',
+                    url: '/api/v{api-version}/complex/{id}',
+                    path: {
+                        id,
+                    },
+                    body: requestBody,
+                    mediaType: 'application/json-patch+json',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -866,25 +1175,42 @@ export class MultipartService {
     /**
      * @throws ApiError
      */
-    public multipartRequest(data: $OpenApiTs['/api/v{api-version}/multipart']['post']['req'] = {}): Observable<void> {
+    public multipartRequest(
+        data: $OpenApiTs['/api/v{api-version}/multipart']['post']['req'] = {},
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<void> {
         const { formData } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/multipart',
-            formData,
-            mediaType: 'multipart/form-data',
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/multipart',
+                    formData,
+                    mediaType: 'multipart/form-data',
+                },
+                options
+            )
+        );
     }
 
     /**
      * @returns any OK
      * @throws ApiError
      */
-    public multipartResponse(): Observable<$OpenApiTs['/api/v{api-version}/multipart']['get']['res'][200]> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/v{api-version}/multipart',
-        });
+    public multipartResponse(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/multipart']['get']['res'][200]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'GET',
+                    url: '/api/v{api-version}/multipart',
+                },
+                options
+            )
+        );
     }
 }
 
@@ -898,16 +1224,24 @@ export class HeaderService {
      * @returns string Successful response
      * @throws ApiError
      */
-    public callWithResultFromHeader(): Observable<$OpenApiTs['/api/v{api-version}/header']['post']['res'][200]> {
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/header',
-            responseHeader: 'operation-location',
-            errors: {
-                400: '400 server error',
-                500: '500 server error',
-            },
-        });
+    public callWithResultFromHeader(
+        options: Partial<ApiRequestOptions> = {}
+    ): Observable<$OpenApiTs['/api/v{api-version}/header']['post']['res'][200]> {
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/header',
+                    responseHeader: 'operation-location',
+                    errors: {
+                        400: '400 server error',
+                        500: '500 server error',
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -922,22 +1256,29 @@ export class ErrorService {
      * @throws ApiError
      */
     public testErrorCode(
-        data: $OpenApiTs['/api/v{api-version}/error']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/error']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/error']['post']['res'][200]> {
         const { status } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/error',
-            query: {
-                status,
-            },
-            errors: {
-                500: 'Custom message: Internal Server Error',
-                501: 'Custom message: Not Implemented',
-                502: 'Custom message: Bad Gateway',
-                503: 'Custom message: Service Unavailable',
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/error',
+                    query: {
+                        status,
+                    },
+                    errors: {
+                        500: 'Custom message: Internal Server Error',
+                        501: 'Custom message: Not Implemented',
+                        502: 'Custom message: Bad Gateway',
+                        503: 'Custom message: Service Unavailable',
+                    },
+                },
+                options
+            )
+        );
     }
 }
 
@@ -952,15 +1293,22 @@ export class NonAsciiÆøåÆøÅöôêÊService {
      * @throws ApiError
      */
     public nonAsciiæøåÆøÅöôêÊ字符串(
-        data: $OpenApiTs['/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串']['post']['req']
+        data: $OpenApiTs['/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串']['post']['req'],
+        options: Partial<ApiRequestOptions> = {}
     ): Observable<$OpenApiTs['/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串']['post']['res'][200]> {
         const { nonAsciiParamæøåÆøÅöôêÊ } = data;
-        return __request(OpenAPI, this.http, {
-            method: 'POST',
-            url: '/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串',
-            query: {
-                nonAsciiParamæøåÆØÅöôêÊ: nonAsciiParamæøåÆøÅöôêÊ,
-            },
-        });
+        return __request(
+            OpenAPI,
+            mergeDeep(
+                {
+                    method: 'POST',
+                    url: '/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串',
+                    query: {
+                        nonAsciiParamæøåÆØÅöôêÊ: nonAsciiParamæøåÆøÅöôêÊ,
+                    },
+                },
+                options
+            )
+        );
     }
 }

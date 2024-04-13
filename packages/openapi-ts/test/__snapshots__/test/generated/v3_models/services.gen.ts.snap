@@ -4,7 +4,6 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 import type { ApiRequestOptions } from './core/ApiRequestOptions';
-import { mergeDeep } from './core/request';
 import type { $OpenApiTs } from './models.gen';
 
 export class DefaultsService {
@@ -26,23 +25,18 @@ export class DefaultsService {
         },
         options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
-        return __request(
-            OpenAPI,
-            mergeDeep(
-                {
-                    method: 'GET',
-                    url: '/api/v{api-version}/defaults',
-                    query: {
-                        parameterString,
-                        parameterNumber,
-                        parameterBoolean,
-                        parameterEnum,
-                        parameterModel,
-                    },
-                },
-                options
-            )
-        );
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v{api-version}/defaults',
+            query: {
+                parameterString,
+                parameterNumber,
+                parameterBoolean,
+                parameterEnum,
+                parameterModel,
+            },
+            ...options,
+        });
     }
 
     /**
@@ -63,23 +57,18 @@ export class DefaultsService {
         },
         options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
-        return __request(
-            OpenAPI,
-            mergeDeep(
-                {
-                    method: 'POST',
-                    url: '/api/v{api-version}/defaults',
-                    query: {
-                        parameterString,
-                        parameterNumber,
-                        parameterBoolean,
-                        parameterEnum,
-                        parameterModel,
-                    },
-                },
-                options
-            )
-        );
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v{api-version}/defaults',
+            query: {
+                parameterString,
+                parameterNumber,
+                parameterBoolean,
+                parameterEnum,
+                parameterModel,
+            },
+            ...options,
+        });
     }
 
     /**
@@ -104,25 +93,20 @@ export class DefaultsService {
         parameterStringNullableWithDefault: $OpenApiTs['/api/v{api-version}/defaults']['put']['req']['parameterStringNullableWithDefault'] = null,
         options: Partial<ApiRequestOptions> = {}
     ): CancelablePromise<void> {
-        return __request(
-            OpenAPI,
-            mergeDeep(
-                {
-                    method: 'PUT',
-                    url: '/api/v{api-version}/defaults',
-                    query: {
-                        parameterOptionalStringWithDefault,
-                        parameterOptionalStringWithEmptyDefault,
-                        parameterOptionalStringWithNoDefault,
-                        parameterStringWithDefault,
-                        parameterStringWithEmptyDefault,
-                        parameterStringWithNoDefault,
-                        parameterStringNullableWithNoDefault,
-                        parameterStringNullableWithDefault,
-                    },
-                },
-                options
-            )
-        );
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/v{api-version}/defaults',
+            query: {
+                parameterOptionalStringWithDefault,
+                parameterOptionalStringWithEmptyDefault,
+                parameterOptionalStringWithNoDefault,
+                parameterStringWithDefault,
+                parameterStringWithEmptyDefault,
+                parameterStringWithNoDefault,
+                parameterStringNullableWithNoDefault,
+                parameterStringNullableWithDefault,
+            },
+            ...options,
+        });
     }
 }

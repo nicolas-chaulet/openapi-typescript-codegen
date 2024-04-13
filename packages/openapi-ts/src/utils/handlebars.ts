@@ -37,6 +37,7 @@ import functionIsBlob from '../templates/core/functions/isBlob.hbs';
 import functionIsFormData from '../templates/core/functions/isFormData.hbs';
 import functionIsString from '../templates/core/functions/isString.hbs';
 import functionIsStringWithValue from '../templates/core/functions/isStringWithValue.hbs';
+import functionMergeDeep from '../templates/core/functions/mergeDeep.hbs';
 import functionIsSuccess from '../templates/core/functions/isSuccess.hbs';
 import functionResolve from '../templates/core/functions/resolve.hbs';
 import templateCoreHttpRequest from '../templates/core/HttpRequest.hbs';
@@ -85,22 +86,25 @@ export const nameOperationDataType = (namespace: 'req' | 'res', operation: Servi
     const baseTypePath = `${exported}['${operation.path}']['${operation.method.toLocaleLowerCase()}']['${namespace}']`;
     if (namespace === 'req') {
         if (!operation.parameters.length) {
-            return '';
+            return `options: Partial<ApiRequestOptions> = {}`;
         }
 
+        let result = '';
         if (config.useOptions) {
             const isOptional = operation.parameters.every(p => !p.isRequired);
-            return isOptional ? `data: ${baseTypePath} = {}` : `data: ${baseTypePath}`;
+            result = isOptional ? `data: ${baseTypePath} = {}` : `data: ${baseTypePath}`;
+        } else {
+            result = operation.parameters
+                .map(p => {
+                    const typePath = `${baseTypePath}['${p.name}']`;
+                    const defaultValue = getDefaultPrintable(p);
+                    const defaultString = defaultValue !== undefined ? ` = ${defaultValue}` : '';
+                    return `${p.name}${modelIsRequired(p)}: ${typePath}${defaultString}`;
+                })
+                .join(', ');
         }
 
-        return operation.parameters
-            .map(p => {
-                const typePath = `${baseTypePath}['${p.name}']`;
-                const defaultValue = getDefaultPrintable(p);
-                const defaultString = defaultValue !== undefined ? ` = ${defaultValue}` : '';
-                return `${p.name}${modelIsRequired(p)}: ${typePath}${defaultString}`;
-            })
-            .join(', ');
+        return `${result}, options: Partial<ApiRequestOptions> = {}`;
     }
     const results = operation.results.filter(result => result.code >= 200 && result.code < 300);
     // TODO: we should return nothing when results don't exist
@@ -285,6 +289,7 @@ export const registerHandlebarTemplates = (): Templates => {
     Handlebars.registerPartial('functions/isString', Handlebars.template(functionIsString));
     Handlebars.registerPartial('functions/isStringWithValue', Handlebars.template(functionIsStringWithValue));
     Handlebars.registerPartial('functions/isSuccess', Handlebars.template(functionIsSuccess));
+    Handlebars.registerPartial('functions/mergeDeep', Handlebars.template(functionMergeDeep));
     Handlebars.registerPartial('functions/resolve', Handlebars.template(functionResolve));
 
     // Specific files for the fetch client implementation
