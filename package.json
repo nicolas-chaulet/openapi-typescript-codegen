@@ -24,16 +24,17 @@
     "lint": "prettier --check . && eslint .",
     "openapi-ts": "pnpm --filter @hey-api/openapi-ts --",
     "prepare": "husky",
-    "test:coverage": "pnpm --recursive test:coverage",
-    "test:e2e": "pnpm --recursive test:e2e",
-    "test:update": "pnpm --recursive test:update",
-    "test": "pnpm --recursive test",
+    "test": "vitest run --project unit",
+    "test:coverage": "vitest run --project unit --coverage",
+    "test:e2e": "vitest run --project e2e --no-file-parallelism",
+    "test:update": "vitest watch --project unit --update",
     "typecheck": "pnpm --recursive typecheck"
   },
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
   "devDependencies": {
+    "@angular/cli": "17.3.5",
     "@changesets/cli": "2.27.1",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-terser": "0.4.4",

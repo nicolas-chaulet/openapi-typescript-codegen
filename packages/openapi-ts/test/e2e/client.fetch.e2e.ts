@@ -1,16 +1,21 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/client/fetch/index.js')
 
-describe('client.node', () => {
+describe('client.fetch', () => {
   beforeAll(async () => {
-    cleanup('client/node')
-    await generateClient('client/node', 'v3', 'node', false, 'ApiClient')
-    compileWithTypescript('client/node')
-    await server.start('client/node')
+    cleanup('client/fetch')
+    await generateClient('client/fetch', 'v3', 'fetch', false, 'ApiClient')
+    compileWithTypescript('client/fetch')
+    await server.start('client/fetch')
   }, 40000)
 
   afterAll(async () => {
@@ -18,7 +23,7 @@ describe('client.node', () => {
   })
 
   it('requests token', async () => {
-    const { ApiClient } = await import('./generated/client/node/index.js')
+    const { ApiClient } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     const client = new ApiClient({
       PASSWORD: undefined,
@@ -26,13 +31,12 @@ describe('client.node', () => {
       USERNAME: undefined
     })
     const result = await client.simple.getCallWithoutParametersAndResponse()
-    expect(tokenRequest.mock.calls.length).toBe(1)
     // @ts-ignore
     expect(result.headers.authorization).toBe('Bearer MY_TOKEN')
   })
 
   it('uses credentials', async () => {
-    const { ApiClient } = await import('./generated/client/node/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient({
       PASSWORD: 'password',
       TOKEN: undefined,
@@ -44,7 +48,7 @@ describe('client.node', () => {
   })
 
   it('supports complex params', async () => {
-    const { ApiClient } = await import('./generated/client/node/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.complex.complexTypes({
@@ -58,7 +62,7 @@ describe('client.node', () => {
   })
 
   it('support form data', async () => {
-    const { ApiClient } = await import('./generated/client/node/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.parameters.callWithParameters(
@@ -74,10 +78,17 @@ describe('client.node', () => {
     expect(result).toBeDefined()
   })
 
+  it('support blob response data', async () => {
+    const { ApiClient } = await import(__filename)
+    const client = new ApiClient()
+    const result = await client.fileResponse.fileResponse('test')
+    expect(result).toBeDefined()
+  })
+
   it('can abort the request', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/node/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       const promise = client.simple.getCallWithoutParametersAndResponse()
       setTimeout(() => {
@@ -93,7 +104,7 @@ describe('client.node', () => {
   it('should throw known error (500)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/node/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(500)
     } catch (err) {
@@ -124,7 +135,7 @@ describe('client.node', () => {
   it('should throw unknown error (599)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/node/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(599)
     } catch (err) {
@@ -151,5 +162,19 @@ describe('client.node', () => {
         url: 'http://localhost:3000/base/api/v1.0/error?status=599'
       })
     )
+  })
+
+  it('it should parse query params', async () => {
+    const { ApiClient } = await import(__filename)
+    const client = new ApiClient()
+    const result = await client.parameters.postCallWithOptionalParam({
+      page: 0,
+      size: 1,
+      sort: ['location']
+    })
+    // @ts-ignore
+    expect(result.query).toStrictEqual({
+      parameter: { page: '0', size: '1', sort: 'location' }
+    })
   })
 })

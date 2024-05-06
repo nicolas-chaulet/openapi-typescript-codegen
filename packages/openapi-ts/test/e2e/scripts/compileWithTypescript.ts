@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url';
 
 import { EOL } from 'os'
 import {
@@ -11,8 +12,10 @@ import {
   sys
 } from 'typescript'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
 export const compileWithTypescript = (dir: string) => {
-  const cwd = `./test/e2e/generated/${dir}/`
+  const cwd = path.resolve(__dirname, `../generated/${dir}/`)
   const tsconfig = {
     compilerOptions: {
       allowSyntheticDefaultImports: true,

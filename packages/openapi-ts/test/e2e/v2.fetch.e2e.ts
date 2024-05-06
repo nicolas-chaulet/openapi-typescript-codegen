@@ -1,9 +1,15 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/v2/fetch/index.js')
+
 
 describe('v2.fetch', () => {
   beforeAll(async () => {
@@ -18,9 +24,7 @@ describe('v2.fetch', () => {
   })
 
   it('requests token', async () => {
-    const { OpenAPI, SimpleService } = await import(
-      './generated/v2/fetch/index.js'
-    )
+    const { OpenAPI, SimpleService } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     OpenAPI.TOKEN = tokenRequest
     const result = await SimpleService.getCallWithoutParametersAndResponse()
@@ -29,7 +33,7 @@ describe('v2.fetch', () => {
   })
 
   it('supports complex params', async () => {
-    const { ComplexService } = await import('./generated/v2/fetch/index.js')
+    const { ComplexService } = await import(__filename)
     const result = await ComplexService.complexTypes({
       // @ts-ignore
       first: {
@@ -55,14 +59,14 @@ describe('v2.fetch useOptions', () => {
   })
 
   it('returns result body by default', async () => {
-    const { SimpleService } = await import('./generated/v2/fetch/index.js')
+    const { SimpleService } = await import(__filename)
     const result = await SimpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.body).toBeUndefined()
   })
 
   it('returns result body', async () => {
-    const { SimpleService } = await import('./generated/v2/fetch/index.js')
+    const { SimpleService } = await import(__filename)
     // @ts-ignore
     const result = await SimpleService.getCallWithoutParametersAndResponse({
       _result: 'body'
@@ -73,7 +77,7 @@ describe('v2.fetch useOptions', () => {
 
   it('returns raw result', async ({ skip }) => {
     skip()
-    const { SimpleService } = await import('./generated/v2/fetch/index.js')
+    const { SimpleService } = await import(__filename)
     // @ts-ignore
     const result = await SimpleService.getCallWithoutParametersAndResponse({
       _result: 'raw'

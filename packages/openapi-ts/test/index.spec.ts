@@ -1,4 +1,6 @@
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { sync } from 'glob';
 import { describe, expect, it } from 'vitest';
@@ -6,14 +8,19 @@ import { describe, expect, it } from 'vitest';
 import { createClient } from '../';
 import type { UserConfig } from '../src/types/config';
 
-const V2_SPEC_PATH = './test/spec/v2.json';
-const V3_SPEC_PATH = './test/spec/v3.json';
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-const OUTPUT_PREFIX = './test/generated/';
+const V2_SPEC_PATH = path.resolve(__dirname, 'spec/v2.json');
+const V3_SPEC_PATH = path.resolve(__dirname, 'spec/v3.json');
 
-const toOutputPath = (name: string) => `${OUTPUT_PREFIX}${name}/`;
+const OUTPUT_PREFIX = path.resolve(__dirname, 'generated/');
+
+const toOutputPath = (name: string) => path.resolve(OUTPUT_PREFIX, name);
 const toSnapshotPath = (file: string) =>
-  `./__snapshots__/${file.replace(OUTPUT_PREFIX, '')}.snap`;
+  path.resolve(
+    __dirname,
+    `__snapshots__/${file.replace(OUTPUT_PREFIX, '')}.snap`,
+  );
 
 describe('OpenAPI v2', () => {
   it.each([
@@ -39,8 +46,8 @@ describe('OpenAPI v2', () => {
       input: V2_SPEC_PATH,
       output,
     });
-    sync(`${output}**/*.ts`).forEach((file) => {
-      const content = readFileSync(file, 'utf8').toString();
+    sync(path.resolve(output, '**/*.ts')).forEach((file) => {
+      const content = readFileSync(file, { encoding: 'utf-8' });
       expect(content).toMatchFileSnapshot(toSnapshotPath(file));
     });
   });
@@ -251,8 +258,8 @@ describe('OpenAPI v3', () => {
       input: V3_SPEC_PATH,
       output,
     });
-    sync(`${output}**/*.ts`).forEach((file) => {
-      const content = readFileSync(file, 'utf8').toString();
+    sync(path.resolve(output, '**/*.ts')).forEach((file) => {
+      const content = readFileSync(file, { encoding: 'utf-8' }).toString();
       expect(content).toMatchFileSnapshot(toSnapshotPath(file));
     });
   });

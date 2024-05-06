@@ -1,10 +1,13 @@
 import { mkdirSync, rmSync } from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url';
 
 import { sync } from 'cross-spawn'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
 export const createAngularProject = (dir: string, name: string) => {
-  const cwd = `./test/e2e/generated/${dir}/`
+  const cwd = path.resolve(__dirname, `../generated/${dir}/`)
   mkdirSync(cwd, {
     recursive: true
   })
@@ -34,12 +37,13 @@ export const createAngularProject = (dir: string, name: string) => {
       '--force'
     ],
     {
-      cwd: path.resolve(cwd),
+      cwd,
       stdio: 'inherit'
     }
   )
   rmSync(`${cwd}/${name}/src/app/`, {
-    recursive: true
+    force: true,
+    recursive: true,
   })
 }
 
@@ -48,7 +52,7 @@ export const buildAngularProject = (
   name: string,
   output: string
 ) => {
-  const cwd = `./test/e2e/generated/${dir}/${name}/`
+  const cwd = path.resolve(__dirname, `../generated/${dir}/${name}/`)
   sync(
     'ng',
     [
@@ -63,7 +67,7 @@ export const buildAngularProject = (
       'false'
     ],
     {
-      cwd: path.resolve(cwd),
+      cwd,
       stdio: 'inherit'
     }
   )

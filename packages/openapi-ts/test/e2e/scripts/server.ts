@@ -1,7 +1,10 @@
 import { Server } from 'node:http'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url';
 
 import express, { Express } from 'express'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 let _app: Express
 let _server: Server
@@ -15,7 +18,7 @@ const start = async (dir: string) =>
     // and all other relative paths are resolved from that file.
     _app.use(
       '/js',
-      express.static(`./test/e2e/generated/${dir}/`, {
+      express.static(path.resolve(__dirname, `../generated/${dir}/`), {
         extensions: ['', 'js'],
         index: 'index.js'
       })
@@ -23,7 +26,7 @@ const start = async (dir: string) =>
 
     _app.use(
       '/js',
-      express.static(`./test/e2e/generated/${dir}/`, {
+      express.static(path.resolve(__dirname, `../generated/${dir}/`), {
         extensions: ['', 'js'],
         index: 'index.js'
       })
@@ -31,25 +34,25 @@ const start = async (dir: string) =>
 
     // Serve static assets
     _app.get('/runtime.js', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/runtime.js`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/runtime.js`))
     })
     _app.get('/polyfills.js', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/polyfills.js`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/polyfills.js`))
     })
     _app.get('/vendor.js', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/vendor.js`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/vendor.js`))
     })
     _app.get('/main.js', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/main.js`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/main.js`))
     })
     _app.get('/styles.css', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/styles.css`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/styles.css`))
     })
     _app.get('/favicon.ico', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/favicon.ico`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/favicon.ico`))
     })
     _app.get('/', (req, res) => {
-      res.sendFile(path.resolve(`./test/e2e/generated/${dir}/index.html`))
+      res.sendFile(path.resolve(__dirname, `../generated/${dir}/index.html`))
     })
 
     // Register an 'echo' server for testing error codes. This will just grab the

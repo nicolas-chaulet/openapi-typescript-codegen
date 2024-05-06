@@ -43,6 +43,6 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./packages/openapi-ts/coverage
+          directory: ./coverage
           flags: unittests
           fail_ci_if_error: true

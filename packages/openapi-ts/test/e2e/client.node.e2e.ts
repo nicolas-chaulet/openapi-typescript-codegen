@@ -1,16 +1,24 @@
+
+
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/client/node/index.js')
 
-describe('client.axios', () => {
+
+describe('client.node', () => {
   beforeAll(async () => {
-    cleanup('client/axios')
-    await generateClient('client/axios', 'v3', 'axios', false, 'ApiClient')
-    compileWithTypescript('client/axios')
-    await server.start('client/axios')
+    cleanup('client/node')
+    await generateClient('client/node', 'v3', 'node', false, 'ApiClient')
+    compileWithTypescript('client/node')
+    await server.start('client/node')
   }, 40000)
 
   afterAll(async () => {
@@ -18,7 +26,7 @@ describe('client.axios', () => {
   })
 
   it('requests token', async () => {
-    const { ApiClient } = await import('./generated/client/axios/index.js')
+    const { ApiClient } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     const client = new ApiClient({
       PASSWORD: undefined,
@@ -32,7 +40,7 @@ describe('client.axios', () => {
   })
 
   it('uses credentials', async () => {
-    const { ApiClient } = await import('./generated/client/axios/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient({
       PASSWORD: 'password',
       TOKEN: undefined,
@@ -44,7 +52,7 @@ describe('client.axios', () => {
   })
 
   it('supports complex params', async () => {
-    const { ApiClient } = await import('./generated/client/axios/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.complex.complexTypes({
@@ -57,8 +65,8 @@ describe('client.axios', () => {
     expect(result).toBeDefined()
   })
 
-  it('supports form data', async () => {
-    const { ApiClient } = await import('./generated/client/axios/index.js')
+  it('support form data', async () => {
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.parameters.callWithParameters(
@@ -77,7 +85,7 @@ describe('client.axios', () => {
   it('can abort the request', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/axios/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       const promise = client.simple.getCallWithoutParametersAndResponse()
       setTimeout(() => {
@@ -93,7 +101,7 @@ describe('client.axios', () => {
   it('should throw known error (500)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/axios/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(500)
     } catch (err) {
@@ -124,7 +132,7 @@ describe('client.axios', () => {
   it('should throw unknown error (599)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/axios/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(599)
     } catch (err) {

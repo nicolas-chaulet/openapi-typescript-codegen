@@ -1,16 +1,22 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/client/xhr/index.js')
 
-describe('client.fetch', () => {
+
+describe.skip('client.xhr', () => {
   beforeAll(async () => {
-    cleanup('client/fetch')
-    await generateClient('client/fetch', 'v3', 'fetch', false, 'ApiClient')
-    compileWithTypescript('client/fetch')
-    await server.start('client/fetch')
+    cleanup('client/xhr')
+    await generateClient('client/xhr', 'v3', 'xhr', false, 'ApiClient')
+    compileWithTypescript('client/xhr')
+    await server.start('client/xhr')
   }, 40000)
 
   afterAll(async () => {
@@ -18,7 +24,7 @@ describe('client.fetch', () => {
   })
 
   it('requests token', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
+    const { ApiClient } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     const client = new ApiClient({
       PASSWORD: undefined,
@@ -31,7 +37,7 @@ describe('client.fetch', () => {
   })
 
   it('uses credentials', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient({
       PASSWORD: 'password',
       TOKEN: undefined,
@@ -43,7 +49,7 @@ describe('client.fetch', () => {
   })
 
   it('supports complex params', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.complex.complexTypes({
@@ -57,7 +63,7 @@ describe('client.fetch', () => {
   })
 
   it('support form data', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.parameters.callWithParameters(
@@ -73,17 +79,10 @@ describe('client.fetch', () => {
     expect(result).toBeDefined()
   })
 
-  it('support blob response data', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
-    const client = new ApiClient()
-    const result = await client.fileResponse.fileResponse('test')
-    expect(result).toBeDefined()
-  })
-
   it('can abort the request', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/fetch/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       const promise = client.simple.getCallWithoutParametersAndResponse()
       setTimeout(() => {
@@ -99,7 +98,7 @@ describe('client.fetch', () => {
   it('should throw known error (500)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/fetch/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(500)
     } catch (err) {
@@ -130,7 +129,7 @@ describe('client.fetch', () => {
   it('should throw unknown error (599)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/fetch/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(599)
     } catch (err) {
@@ -157,19 +156,5 @@ describe('client.fetch', () => {
         url: 'http://localhost:3000/base/api/v1.0/error?status=599'
       })
     )
-  })
-
-  it('it should parse query params', async () => {
-    const { ApiClient } = await import('./generated/client/fetch/index.js')
-    const client = new ApiClient()
-    const result = await client.parameters.postCallWithOptionalParam({
-      page: 0,
-      size: 1,
-      sort: ['location']
-    })
-    // @ts-ignore
-    expect(result.query).toStrictEqual({
-      parameter: { page: '0', size: '1', sort: 'location' }
-    })
   })
 })

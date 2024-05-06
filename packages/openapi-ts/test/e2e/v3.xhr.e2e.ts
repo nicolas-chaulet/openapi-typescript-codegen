@@ -1,16 +1,22 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/v3/xhr/index.js')
 
-describe('v3.node', () => {
+
+describe.skip('v3.xhr', () => {
   beforeAll(async () => {
-    cleanup('v3/node')
-    await generateClient('v3/node', 'v3', 'node')
-    compileWithTypescript('v3/node')
-    await server.start('v3/node')
+    cleanup('v3/xhr')
+    await generateClient('v3/xhr', 'v3', 'xhr')
+    compileWithTypescript('v3/xhr')
+    await server.start('v3/xhr')
   }, 40000)
 
   afterAll(async () => {
@@ -18,9 +24,7 @@ describe('v3.node', () => {
   })
 
   it('requests token', async () => {
-    const { OpenAPI, SimpleService } = await import(
-      './generated/v3/node/index.js'
-    )
+    const { OpenAPI, SimpleService } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     OpenAPI.TOKEN = tokenRequest
     OpenAPI.USERNAME = undefined
@@ -32,9 +36,7 @@ describe('v3.node', () => {
   })
 
   it('uses credentials', async () => {
-    const { OpenAPI, SimpleService } = await import(
-      './generated/v3/node/index.js'
-    )
+    const { OpenAPI, SimpleService } = await import(__filename)
     OpenAPI.TOKEN = undefined
     OpenAPI.USERNAME = 'username'
     OpenAPI.PASSWORD = 'password'
@@ -44,7 +46,7 @@ describe('v3.node', () => {
   })
 
   it('supports complex params', async () => {
-    const { ComplexService } = await import('./generated/v3/node/index.js')
+    const { ComplexService } = await import(__filename)
     const result = await ComplexService.complexTypes({
       // @ts-ignore
       first: {
@@ -57,7 +59,7 @@ describe('v3.node', () => {
   })
 
   it('support form data', async () => {
-    const { ParametersService } = await import('./generated/v3/node/index.js')
+    const { ParametersService } = await import(__filename)
     const result = await ParametersService.callWithParameters(
       'valueHeader',
       // @ts-ignore
@@ -72,17 +74,10 @@ describe('v3.node', () => {
     expect(result).toBeDefined()
   })
 
-  it('support blob response data', async () => {
-    const { FileResponseService } = await import('./generated/v3/node/index.js')
-    // @ts-ignore
-    const result = await FileResponseService.fileResponse('test')
-    expect(result).toBeDefined()
-  })
-
   it('can abort the request', async () => {
     let error
     try {
-      const { SimpleService } = await import('./generated/v3/node/index.js')
+      const { SimpleService } = await import(__filename)
       const promise = SimpleService.getCallWithoutParametersAndResponse()
       setTimeout(() => {
         promise.cancel()
@@ -97,7 +92,7 @@ describe('v3.node', () => {
   it('should throw known error (500)', async () => {
     let error
     try {
-      const { ErrorService } = await import('./generated/v3/node/index.js')
+      const { ErrorService } = await import(__filename)
       // @ts-ignore
       await ErrorService.testErrorCode(500)
     } catch (err) {
@@ -128,7 +123,7 @@ describe('v3.node', () => {
   it('should throw unknown error (599)', async () => {
     let error
     try {
-      const { ErrorService } = await import('./generated/v3/node/index.js')
+      const { ErrorService } = await import(__filename)
       // @ts-ignore
       await ErrorService.testErrorCode(599)
     } catch (err) {
@@ -158,7 +153,7 @@ describe('v3.node', () => {
   })
 
   it('it should parse query params', async () => {
-    const { ParametersService } = await import('./generated/v3/node/index.js')
+    const { ParametersService } = await import(__filename)
     const result = await ParametersService.postCallWithOptionalParam({
       // @ts-ignore
       page: 0,
@@ -172,12 +167,12 @@ describe('v3.node', () => {
   })
 })
 
-describe('v3.node useOptions', () => {
+describe.skip('v3.xhr useOptions', () => {
   beforeAll(async () => {
-    cleanup('v3/node')
-    await generateClient('v3/node', 'v3', 'node', true)
-    compileWithTypescript('v3/node')
-    await server.start('v3/node')
+    cleanup('v3/xhr')
+    await generateClient('v3/xhr', 'v3', 'xhr', true)
+    compileWithTypescript('v3/xhr')
+    await server.start('v3/xhr')
   }, 40000)
 
   afterAll(async () => {
@@ -185,14 +180,14 @@ describe('v3.node useOptions', () => {
   })
 
   it('returns result body by default', async () => {
-    const { SimpleService } = await import('./generated/v3/node/index.js')
+    const { SimpleService } = await import(__filename)
     const result = await SimpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.body).toBeUndefined()
   })
 
   it('returns result body', async () => {
-    const { SimpleService } = await import('./generated/v3/node/index.js')
+    const { SimpleService } = await import(__filename)
     // @ts-ignore
     const result = await SimpleService.getCallWithoutParametersAndResponse({
       _result: 'body'
@@ -203,7 +198,7 @@ describe('v3.node useOptions', () => {
 
   it('returns raw result', async ({ skip }) => {
     skip()
-    const { SimpleService } = await import('./generated/v3/node/index.js')
+    const { SimpleService } = await import(__filename)
     // @ts-ignore
     const result = await SimpleService.getCallWithoutParametersAndResponse({
       _result: 'raw'

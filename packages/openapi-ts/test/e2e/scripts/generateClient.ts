@@ -1,5 +1,10 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import { createClient } from '../../../'
 import type { Config } from '../../../src/types/config'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export const generateClient = async (
   dir: string,
@@ -10,9 +15,9 @@ export const generateClient = async (
 ) => {
   await createClient({
     client,
-    input: `./test/spec/${version}.json`,
+    input: path.resolve(__dirname, `../../spec/${version}.json`),
     name,
-    output: `./test/e2e/generated/${dir}/`,
+    output: path.resolve(__dirname, `../generated/${dir}/`),
     useOptions
   })
 }

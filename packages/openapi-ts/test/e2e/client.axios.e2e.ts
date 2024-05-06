@@ -1,16 +1,21 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import { cleanup } from './scripts/cleanup'
 import { compileWithTypescript } from './scripts/compileWithTypescript'
 import { generateClient } from './scripts/generateClient'
 import server from './scripts/server'
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const __filename = path.resolve(__dirname, 'generated/client/axios/index.js')
 
-describe.skip('client.xhr', () => {
+describe('client.axios', () => {
   beforeAll(async () => {
-    cleanup('client/xhr')
-    await generateClient('client/xhr', 'v3', 'xhr', false, 'ApiClient')
-    compileWithTypescript('client/xhr')
-    await server.start('client/xhr')
+    cleanup('client/axios')
+    await generateClient('client/axios', 'v3', 'axios', false, 'ApiClient')
+    compileWithTypescript('client/axios')
+    await server.start('client/axios')
   }, 40000)
 
   afterAll(async () => {
@@ -18,7 +23,7 @@ describe.skip('client.xhr', () => {
   })
 
   it('requests token', async () => {
-    const { ApiClient } = await import('./generated/client/xhr/index.js')
+    const { ApiClient } = await import(__filename)
     const tokenRequest = vi.fn().mockResolvedValue('MY_TOKEN')
     const client = new ApiClient({
       PASSWORD: undefined,
@@ -26,12 +31,13 @@ describe.skip('client.xhr', () => {
       USERNAME: undefined
     })
     const result = await client.simple.getCallWithoutParametersAndResponse()
+    expect(tokenRequest.mock.calls.length).toBe(1)
     // @ts-ignore
     expect(result.headers.authorization).toBe('Bearer MY_TOKEN')
   })
 
   it('uses credentials', async () => {
-    const { ApiClient } = await import('./generated/client/xhr/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient({
       PASSWORD: 'password',
       TOKEN: undefined,
@@ -43,7 +49,7 @@ describe.skip('client.xhr', () => {
   })
 
   it('supports complex params', async () => {
-    const { ApiClient } = await import('./generated/client/xhr/index.js')
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.complex.complexTypes({
@@ -56,8 +62,8 @@ describe.skip('client.xhr', () => {
     expect(result).toBeDefined()
   })
 
-  it('support form data', async () => {
-    const { ApiClient } = await import('./generated/client/xhr/index.js')
+  it('supports form data', async () => {
+    const { ApiClient } = await import(__filename)
     const client = new ApiClient()
     // @ts-ignore
     const result = await client.parameters.callWithParameters(
@@ -76,7 +82,7 @@ describe.skip('client.xhr', () => {
   it('can abort the request', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/xhr/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       const promise = client.simple.getCallWithoutParametersAndResponse()
       setTimeout(() => {
@@ -92,7 +98,7 @@ describe.skip('client.xhr', () => {
   it('should throw known error (500)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/xhr/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(500)
     } catch (err) {
@@ -123,7 +129,7 @@ describe.skip('client.xhr', () => {
   it('should throw unknown error (599)', async () => {
     let error
     try {
-      const { ApiClient } = await import('./generated/client/xhr/index.js')
+      const { ApiClient } = await import(__filename)
       const client = new ApiClient()
       await client.error.testErrorCode(599)
     } catch (err) {
