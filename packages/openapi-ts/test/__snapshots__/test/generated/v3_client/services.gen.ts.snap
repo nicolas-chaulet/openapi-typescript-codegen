@@ -8,9 +8,10 @@ export class DefaultService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public serviceWithEmptyTag(): CancelablePromise<void> {
+    public serviceWithEmptyTag(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/no-tag'
@@ -20,10 +21,11 @@ export class DefaultService {
     /**
      * @param data The data for the request.
      * @param data.requestBody
+     * @param overrides Additional request headers
      * @returns ModelWithReadOnlyAndWriteOnly
      * @throws ApiError
      */
-    public postServiceWithEmptyTag(data: PostServiceWithEmptyTagData): CancelablePromise<PostServiceWithEmptyTagResponse3> {
+    public postServiceWithEmptyTag(data: PostServiceWithEmptyTagData, overrides?: RequestOptions | undefined): CancelablePromise<PostServiceWithEmptyTagResponse3> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/no-tag',
@@ -38,10 +40,11 @@ export class SimpleService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns Model_From_Zendesk Success
      * @throws ApiError
      */
-    public apiVVersionOdataControllerCount(): CancelablePromise<ApiVversionOdataControllerCountResponse> {
+    public apiVVersionOdataControllerCount(overrides?: RequestOptions | undefined): CancelablePromise<ApiVversionOdataControllerCountResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/simple/$count'
@@ -49,9 +52,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public getCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public getCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/simple'
@@ -59,9 +63,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public putCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public putCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/api/v{api-version}/simple'
@@ -69,9 +74,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public postCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public postCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/simple'
@@ -79,9 +85,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public deleteCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public deleteCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/api/v{api-version}/simple'
@@ -89,9 +96,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public optionsCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public optionsCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'OPTIONS',
             url: '/api/v{api-version}/simple'
@@ -99,9 +107,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public headCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public headCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'HEAD',
             url: '/api/v{api-version}/simple'
@@ -109,9 +118,10 @@ export class SimpleService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public patchCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public patchCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'PATCH',
             url: '/api/v{api-version}/simple'
@@ -127,9 +137,10 @@ export class ParametersService {
      * @param data The data for the request.
      * @param data.foo foo in method
      * @param data.bar bar in method
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public deleteFoo(data: DeleteFooData3): CancelablePromise<void> {
+    public deleteFoo(data: DeleteFooData3, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/api/v{api-version}/foo/{foo}/bar/{bar}',
@@ -150,9 +161,10 @@ export class ParametersService {
      * @param data.parameterPath This is the parameter that goes into the path
      * @param data.requestBody This is the parameter that goes into the body
      * @param data.fooRefEnum
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callWithParameters(data: CallWithParametersData): CancelablePromise<void> {
+    public callWithParameters(data: CallWithParametersData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/parameters/{parameterPath}',
@@ -189,9 +201,10 @@ export class ParametersService {
      * @param data.parameterPath2 This is the parameter that goes into the path
      * @param data.parameterPath3 This is the parameter that goes into the path
      * @param data._default This is the parameter with a reserved keyword
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callWithWeirdParameterNames(data: CallWithWeirdParameterNamesData): CancelablePromise<void> {
+    public callWithWeirdParameterNames(data: CallWithWeirdParameterNamesData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}',
@@ -222,9 +235,10 @@ export class ParametersService {
      * @param data The data for the request.
      * @param data.requestBody This is a required parameter
      * @param data.parameter This is an optional parameter
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public getCallWithOptionalParam(data: GetCallWithOptionalParamData): CancelablePromise<void> {
+    public getCallWithOptionalParam(data: GetCallWithOptionalParamData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/parameters/',
@@ -240,9 +254,10 @@ export class ParametersService {
      * @param data The data for the request.
      * @param data.parameter This is a required parameter
      * @param data.requestBody This is an optional parameter
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public postCallWithOptionalParam(data: PostCallWithOptionalParamData): CancelablePromise<void> {
+    public postCallWithOptionalParam(data: PostCallWithOptionalParamData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/parameters/',
@@ -270,9 +285,10 @@ export class DescriptionsService {
      * @param data.parameterWithExpressionPlaceholders Testing expression placeholders in string: ${expression} should work
      * @param data.parameterWithQuotes Testing quotes in string: 'single quote''' and "double quotes""" should work
      * @param data.parameterWithReservedCharacters Testing reserved characters in string: * inline * and ** inline ** should work
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callWithDescriptions(data: CallWithDescriptionsData = {}): CancelablePromise<void> {
+    public callWithDescriptions(data: CallWithDescriptionsData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/descriptions/',
@@ -296,9 +312,10 @@ export class DeprecatedService {
      * @deprecated
      * @param data The data for the request.
      * @param data.parameter This parameter is deprecated
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public deprecatedCall(data: DeprecatedCallData): CancelablePromise<void> {
+    public deprecatedCall(data: DeprecatedCallData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/parameters/deprecated',
@@ -317,9 +334,10 @@ export class RequestBodyService {
      * @param data The data for the request.
      * @param data.parameter This is a reusable parameter
      * @param data.foo A reusable request body
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public postApiRequestBody(data: PostApiRequestBodyData = {}): CancelablePromise<void> {
+    public postApiRequestBody(data: PostApiRequestBodyData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/requestBody/',
@@ -340,9 +358,10 @@ export class FormDataService {
      * @param data The data for the request.
      * @param data.parameter This is a reusable parameter
      * @param data.formData A reusable request body
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public postApiFormData(data: PostApiFormDataData = {}): CancelablePromise<void> {
+    public postApiFormData(data: PostApiFormDataData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/formData/',
@@ -366,9 +385,10 @@ export class DefaultsService {
      * @param data.parameterBoolean This is a simple boolean with default value
      * @param data.parameterEnum This is a simple enum with default value
      * @param data.parameterModel This is a simple model with default value
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callWithDefaultParameters(data: CallWithDefaultParametersData = {}): CancelablePromise<void> {
+    public callWithDefaultParameters(data: CallWithDefaultParametersData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/defaults',
@@ -389,9 +409,10 @@ export class DefaultsService {
      * @param data.parameterBoolean This is a simple boolean that is optional with default value
      * @param data.parameterEnum This is a simple enum that is optional with default value
      * @param data.parameterModel This is a simple model that is optional with default value
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callWithDefaultOptionalParameters(data: CallWithDefaultOptionalParametersData = {}): CancelablePromise<void> {
+    public callWithDefaultOptionalParameters(data: CallWithDefaultOptionalParametersData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/defaults',
@@ -415,9 +436,10 @@ export class DefaultsService {
      * @param data.parameterStringWithEmptyDefault This is a string with empty default
      * @param data.parameterStringNullableWithNoDefault This is a string that can be null with no default
      * @param data.parameterStringNullableWithDefault This is a string that can be null with default
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public callToTestOrderOfParams(data: CallToTestOrderOfParamsData): CancelablePromise<void> {
+    public callToTestOrderOfParams(data: CallToTestOrderOfParamsData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/api/v{api-version}/defaults',
@@ -440,9 +462,10 @@ export class DuplicateService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public duplicateName(): CancelablePromise<void> {
+    public duplicateName(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/duplicate'
@@ -450,9 +473,10 @@ export class DuplicateService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public duplicateName1(): CancelablePromise<void> {
+    public duplicateName1(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/duplicate'
@@ -460,9 +484,10 @@ export class DuplicateService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public duplicateName2(): CancelablePromise<void> {
+    public duplicateName2(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/api/v{api-version}/duplicate'
@@ -470,9 +495,10 @@ export class DuplicateService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public duplicateName3(): CancelablePromise<void> {
+    public duplicateName3(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/api/v{api-version}/duplicate'
@@ -485,10 +511,11 @@ export class NoContentService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public callWithNoContentResponse(): CancelablePromise<CallWithNoContentResponseResponse> {
+    public callWithNoContentResponse(overrides?: RequestOptions | undefined): CancelablePromise<CallWithNoContentResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/no-content'
@@ -496,11 +523,12 @@ export class NoContentService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns number Response is a simple number
      * @returns void Success
      * @throws ApiError
      */
-    public callWithResponseAndNoContentResponse(): CancelablePromise<CallWithResponseAndNoContentResponseResponse> {
+    public callWithResponseAndNoContentResponse(overrides?: RequestOptions | undefined): CancelablePromise<CallWithResponseAndNoContentResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/response-and-no-content'
@@ -513,11 +541,12 @@ export class ResponseService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns number Response is a simple number
      * @returns void Success
      * @throws ApiError
      */
-    public callWithResponseAndNoContentResponse(): CancelablePromise<CallWithResponseAndNoContentResponseResponse> {
+    public callWithResponseAndNoContentResponse(overrides?: RequestOptions | undefined): CancelablePromise<CallWithResponseAndNoContentResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/response-and-no-content'
@@ -525,10 +554,11 @@ export class ResponseService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns ModelWithString
      * @throws ApiError
      */
-    public callWithResponse(): CancelablePromise<CallWithResponseResponse> {
+    public callWithResponse(overrides?: RequestOptions | undefined): CancelablePromise<CallWithResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/response'
@@ -536,12 +566,13 @@ export class ResponseService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns unknown Message for 200 response
      * @returns ModelWithString Message for 201 response
      * @returns ModelWithBoolean Message for default response
      * @throws ApiError
      */
-    public callWithDuplicateResponses(): CancelablePromise<CallWithDuplicateResponsesResponse> {
+    public callWithDuplicateResponses(overrides?: RequestOptions | undefined): CancelablePromise<CallWithDuplicateResponsesResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/response',
@@ -554,13 +585,14 @@ export class ResponseService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns unknown Message for 200 response
      * @returns ModelThatExtends Message for 201 response
      * @returns ModelThatExtendsExtends Message for 202 response
      * @returns ModelWithString Message for default response
      * @throws ApiError
      */
-    public callWithResponses(): CancelablePromise<CallWithResponsesResponse> {
+    public callWithResponses(overrides?: RequestOptions | undefined): CancelablePromise<CallWithResponsesResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/api/v{api-version}/response',
@@ -578,10 +610,11 @@ export class MultipleTags1Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public dummyA(): CancelablePromise<DummyAResponse> {
+    public dummyA(overrides?: RequestOptions | undefined): CancelablePromise<DummyAResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/a'
@@ -589,10 +622,11 @@ export class MultipleTags1Service {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): CancelablePromise<DummyBResponse> {
+    public dummyB(overrides?: RequestOptions | undefined): CancelablePromise<DummyBResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/b'
@@ -605,10 +639,11 @@ export class MultipleTags2Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public dummyA(): CancelablePromise<DummyAResponse> {
+    public dummyA(overrides?: RequestOptions | undefined): CancelablePromise<DummyAResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/a'
@@ -616,10 +651,11 @@ export class MultipleTags2Service {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): CancelablePromise<DummyBResponse> {
+    public dummyB(overrides?: RequestOptions | undefined): CancelablePromise<DummyBResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/b'
@@ -632,10 +668,11 @@ export class MultipleTags3Service {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns void Success
      * @throws ApiError
      */
-    public dummyB(): CancelablePromise<DummyBResponse> {
+    public dummyB(overrides?: RequestOptions | undefined): CancelablePromise<DummyBResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multiple-tags/b'
@@ -654,9 +691,10 @@ export class CollectionFormatService {
      * @param data.parameterArrayTsv This is an array parameter that is sent as tsv format (tab-separated values)
      * @param data.parameterArrayPipes This is an array parameter that is sent as pipes format (pipe-separated values)
      * @param data.parameterArrayMulti This is an array parameter that is sent as multi format (multiple parameter instances)
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public collectionFormat(data: CollectionFormatData): CancelablePromise<void> {
+    public collectionFormat(data: CollectionFormatData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/collectionFormat',
@@ -685,13 +723,14 @@ export class TypesService {
      * @param data.parameterBoolean This is a boolean parameter
      * @param data.parameterObject This is an object parameter
      * @param data.id This is a number parameter
+     * @param overrides Additional request headers
      * @returns number Response is a simple number
      * @returns string Response is a simple string
      * @returns boolean Response is a simple boolean
      * @returns unknown Response is a simple object
      * @throws ApiError
      */
-    public types(data: TypesData): CancelablePromise<TypesResponse> {
+    public types(data: TypesData, overrides?: RequestOptions | undefined): CancelablePromise<TypesResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/types',
@@ -718,10 +757,11 @@ export class UploadService {
     /**
      * @param data The data for the request.
      * @param data.file Supply a file reference for upload
+     * @param overrides Additional request headers
      * @returns boolean
      * @throws ApiError
      */
-    public uploadFile(data: UploadFileData): CancelablePromise<UploadFileResponse> {
+    public uploadFile(data: UploadFileData, overrides?: RequestOptions | undefined): CancelablePromise<UploadFileResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/upload',
@@ -739,10 +779,11 @@ export class FileResponseService {
     /**
      * @param data The data for the request.
      * @param data.id
+     * @param overrides Additional request headers
      * @returns binary Success
      * @throws ApiError
      */
-    public fileResponse(data: FileResponseData): CancelablePromise<FileResponseResponse> {
+    public fileResponse(data: FileResponseData, overrides?: RequestOptions | undefined): CancelablePromise<FileResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/file/{id}',
@@ -761,10 +802,11 @@ export class ComplexService {
      * @param data The data for the request.
      * @param data.parameterObject Parameter containing object
      * @param data.parameterReference Parameter containing reference
+     * @param overrides Additional request headers
      * @returns ModelWithString Successful response
      * @throws ApiError
      */
-    public complexTypes(data: ComplexTypesData): CancelablePromise<ComplexTypesResponse> {
+    public complexTypes(data: ComplexTypesData, overrides?: RequestOptions | undefined): CancelablePromise<ComplexTypesResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/complex',
@@ -783,10 +825,11 @@ export class ComplexService {
      * @param data The data for the request.
      * @param data.id
      * @param data.requestBody
+     * @param overrides Additional request headers
      * @returns ModelWithString Success
      * @throws ApiError
      */
-    public complexParams(data: ComplexParamsData): CancelablePromise<ComplexParamsResponse> {
+    public complexParams(data: ComplexParamsData, overrides?: RequestOptions | undefined): CancelablePromise<ComplexParamsResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/api/v{api-version}/complex/{id}',
@@ -806,9 +849,10 @@ export class MultipartService {
     /**
      * @param data The data for the request.
      * @param data.formData
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public multipartRequest(data: MultipartRequestData = {}): CancelablePromise<void> {
+    public multipartRequest(data: MultipartRequestData = {}, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/multipart',
@@ -818,10 +862,11 @@ export class MultipartService {
     }
     
     /**
+     * @param overrides Additional request headers
      * @returns unknown OK
      * @throws ApiError
      */
-    public multipartResponse(): CancelablePromise<MultipartResponseResponse> {
+    public multipartResponse(overrides?: RequestOptions | undefined): CancelablePromise<MultipartResponseResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/v{api-version}/multipart'
@@ -834,10 +879,11 @@ export class HeaderService {
     constructor(public readonly httpRequest: BaseHttpRequest) { }
     
     /**
+     * @param overrides Additional request headers
      * @returns string Successful response
      * @throws ApiError
      */
-    public callWithResultFromHeader(): CancelablePromise<CallWithResultFromHeaderResponse> {
+    public callWithResultFromHeader(overrides?: RequestOptions | undefined): CancelablePromise<CallWithResultFromHeaderResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/header',
@@ -857,10 +903,11 @@ export class ErrorService {
     /**
      * @param data The data for the request.
      * @param data.status Status code to return
+     * @param overrides Additional request headers
      * @returns unknown Custom message: Successful response
      * @throws ApiError
      */
-    public testErrorCode(data: TestErrorCodeData): CancelablePromise<TestErrorCodeResponse> {
+    public testErrorCode(data: TestErrorCodeData, overrides?: RequestOptions | undefined): CancelablePromise<TestErrorCodeResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/error',
@@ -884,10 +931,11 @@ export class NonAsciiÆøåÆøÅöôêÊService {
     /**
      * @param data The data for the request.
      * @param data.nonAsciiParamæøåÆøÅöôêÊ Dummy input param
+     * @param overrides Additional request headers
      * @returns NonAsciiStringæøåÆØÅöôêÊ字符串 Successful response
      * @throws ApiError
      */
-    public nonAsciiæøåÆøÅöôêÊ字符串(data: NonAsciiæøåÆøÅöôêÊ字符串Data): CancelablePromise<NonAsciiæøåÆøÅöôêÊ字符串Response> {
+    public nonAsciiæøåÆøÅöôêÊ字符串(data: NonAsciiæøåÆøÅöôêÊ字符串Data, overrides?: RequestOptions | undefined): CancelablePromise<NonAsciiæøåÆøÅöôêÊ字符串Response> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/v{api-version}/non-ascii-æøåÆØÅöôêÊ字符串',

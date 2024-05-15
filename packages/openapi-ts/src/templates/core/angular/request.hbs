@@ -53,23 +53,30 @@ import type { OpenAPIConfig } from './OpenAPI';
 
 {{>functions/catchErrorCodes}}
 
+/**
+ * Request options for additional headers
+ */
+export type RequestOptions = {
+	headers?: Record<string, string>;
+};
 
 /**
  * Request method
  * @param config The OpenAPI configuration object
  * @param http The Angular HTTP client
  * @param options The request options from the service
+ * @param overrides The request options for additional headers
  * @returns Observable<T>
  * @throws ApiError
  */
-export const request = <T>(config: OpenAPIConfig, http: HttpClient, options: ApiRequestOptions): Observable<T> => {
+export const request = <T>(config: OpenAPIConfig, http: HttpClient, options: ApiRequestOptions, overrides?: RequestOptions | undefined): Observable<T> => {
 	const url = getUrl(config, options);
 	const formData = getFormData(options);
 	const body = getRequestBody(options);
 
 	return getHeaders(config, options).pipe(
 		switchMap(headers => {
-			return sendRequest<T>(config, options, http, url, body, formData, headers);
+			return sendRequest<T>(config, options, http, url, body, formData, { ...headers, ...overrides?.headers });
 		}),
 		switchMap(async response => {
 			for (const fn of config.interceptors.response._fns) {

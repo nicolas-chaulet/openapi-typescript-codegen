@@ -3,87 +3,96 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
+import { RequestOptions } from './core/request';
 
 export class myAwesomeSimpleApi {
     /**
+     * @param overrides Additional request headers
      * @returns Model_From_Zendesk Success
      * @throws ApiError
      */
-    public static apiVVersionOdataControllerCount(): CancelablePromise<ApiVversionOdataControllerCountResponse> {
+    public static apiVVersionOdataControllerCount(overrides?: RequestOptions | undefined): CancelablePromise<ApiVversionOdataControllerCountResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v{api-version}/simple/$count'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static getCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static getCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static putCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static putCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static postCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static postCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static deleteCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static deleteCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static optionsCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static optionsCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'OPTIONS',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static headCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static headCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'HEAD',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
     /**
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static patchCallWithoutParametersAndResponse(): CancelablePromise<void> {
+    public static patchCallWithoutParametersAndResponse(overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/api/v{api-version}/simple'
-        });
+        }, overrides);
     }
     
 }
@@ -93,9 +102,10 @@ export class myAwesomeParametersApi {
      * @param data The data for the request.
      * @param data.foo foo in method
      * @param data.bar bar in method
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static deleteFoo(data: DeleteFooData3): CancelablePromise<void> {
+    public static deleteFoo(data: DeleteFooData3, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/api/v{api-version}/foo/{foo}/bar/{bar}',
@@ -103,7 +113,7 @@ export class myAwesomeParametersApi {
                 foo: data.foo,
                 bar: data.bar
             }
-        });
+        }, overrides);
     }
     
     /**
@@ -116,9 +126,10 @@ export class myAwesomeParametersApi {
      * @param data.parameterPath This is the parameter that goes into the path
      * @param data.requestBody This is the parameter that goes into the body
      * @param data.fooRefEnum
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static callWithParameters(data: CallWithParametersData): CancelablePromise<void> {
+    public static callWithParameters(data: CallWithParametersData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v{api-version}/parameters/{parameterPath}',
@@ -141,7 +152,7 @@ export class myAwesomeParametersApi {
             },
             body: data.requestBody,
             mediaType: 'application/json'
-        });
+        }, overrides);
     }
     
     /**
@@ -155,9 +166,10 @@ export class myAwesomeParametersApi {
      * @param data.parameterPath2 This is the parameter that goes into the path
      * @param data.parameterPath3 This is the parameter that goes into the path
      * @param data._default This is the parameter with a reserved keyword
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static callWithWeirdParameterNames(data: CallWithWeirdParameterNamesData): CancelablePromise<void> {
+    public static callWithWeirdParameterNames(data: CallWithWeirdParameterNamesData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v{api-version}/parameters/{parameter.path.1}/{parameter-path-2}/{PARAMETER-PATH-3}',
@@ -181,16 +193,17 @@ export class myAwesomeParametersApi {
             },
             body: data.requestBody,
             mediaType: 'application/json'
-        });
+        }, overrides);
     }
     
     /**
      * @param data The data for the request.
      * @param data.requestBody This is a required parameter
      * @param data.parameter This is an optional parameter
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static getCallWithOptionalParam(data: GetCallWithOptionalParamData): CancelablePromise<void> {
+    public static getCallWithOptionalParam(data: GetCallWithOptionalParamData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v{api-version}/parameters/',
@@ -199,16 +212,17 @@ export class myAwesomeParametersApi {
             },
             body: data.requestBody,
             mediaType: 'application/json'
-        });
+        }, overrides);
     }
     
     /**
      * @param data The data for the request.
      * @param data.parameter This is a required parameter
      * @param data.requestBody This is an optional parameter
+     * @param overrides Additional request headers
      * @throws ApiError
      */
-    public static postCallWithOptionalParam(data: PostCallWithOptionalParamData): CancelablePromise<void> {
+    public static postCallWithOptionalParam(data: PostCallWithOptionalParamData, overrides?: RequestOptions | undefined): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v{api-version}/parameters/',
@@ -217,7 +231,7 @@ export class myAwesomeParametersApi {
             },
             body: data.requestBody,
             mediaType: 'application/json'
-        });
+        }, overrides);
     }
     
 }

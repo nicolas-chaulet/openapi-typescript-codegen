@@ -296,15 +296,22 @@ export const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): 
 		);
 	}
 };
+/**
+ * Request options for additional headers
+ */
+export type RequestOptions = {
+	headers?: Record<string, string>;
+};
 
 /**
  * Request method
  * @param config The OpenAPI configuration object
  * @param options The request options from the service
+ * @param overrides The request options for additional headers
  * @returns CancelablePromise<T>
  * @throws ApiError
  */
-export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): CancelablePromise<T> => {
+export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, overrides?: RequestOptions | undefined): CancelablePromise<T> => {
 	return new CancelablePromise(async (resolve, reject, onCancel) => {
 		try {
 			const url = getUrl(config, options);
@@ -312,8 +319,10 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): C
 			const body = getRequestBody(options);
 			const headers = await getHeaders(config, options);
 
+			const mergedHeaders = { ...headers, ...overrides?.headers };
+
 			if (!onCancel.isCancelled) {
-				let response = await sendRequest(config, options, url, body, formData, headers, onCancel);
+				let response = await sendRequest(config, options, url, body, formData, mergedHeaders, onCancel);
 
 				for (const fn of config.interceptors.response._fns) {
 					response = await fn(response);

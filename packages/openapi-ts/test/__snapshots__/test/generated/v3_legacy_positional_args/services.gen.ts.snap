@@ -3,6 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
+import { RequestOptions } from './core/request';
 import type { CallWithDefaultParametersData, CallWithDefaultOptionalParametersData, CallToTestOrderOfParamsData } from './types.gen';
 
 export class DefaultsService {
@@ -12,6 +13,7 @@ export class DefaultsService {
      * @param parameterBoolean This is a simple boolean with default value
      * @param parameterEnum This is a simple enum with default value
      * @param parameterModel This is a simple model with default value
+     * @param overrides Additional request headers
      * @throws ApiError
      */
     public static callWithDefaultParameters(parameterString: CallWithDefaultParametersData['parameterString'] = 'Hello World!', parameterNumber: CallWithDefaultParametersData['parameterNumber'] = 123, parameterBoolean: CallWithDefaultParametersData['parameterBoolean'] = true, parameterEnum: CallWithDefaultParametersData['parameterEnum'] = 'Success', parameterModel: CallWithDefaultParametersData['parameterModel'] = {
@@ -27,7 +29,7 @@ export class DefaultsService {
                 parameterEnum,
                 parameterModel
             }
-        });
+        }, overrides);
     }
     
     /**
@@ -36,6 +38,7 @@ export class DefaultsService {
      * @param parameterBoolean This is a simple boolean that is optional with default value
      * @param parameterEnum This is a simple enum that is optional with default value
      * @param parameterModel This is a simple model that is optional with default value
+     * @param overrides Additional request headers
      * @throws ApiError
      */
     public static callWithDefaultOptionalParameters(parameterString: CallWithDefaultOptionalParametersData['parameterString'] = 'Hello World!', parameterNumber: CallWithDefaultOptionalParametersData['parameterNumber'] = 123, parameterBoolean: CallWithDefaultOptionalParametersData['parameterBoolean'] = true, parameterEnum: CallWithDefaultOptionalParametersData['parameterEnum'] = 'Success', parameterModel: CallWithDefaultOptionalParametersData['parameterModel'] = {
@@ -51,7 +54,7 @@ export class DefaultsService {
                 parameterEnum,
                 parameterModel
             }
-        });
+        }, overrides);
     }
     
     /**
@@ -63,6 +66,7 @@ export class DefaultsService {
      * @param parameterStringWithEmptyDefault This is a string with empty default
      * @param parameterStringNullableWithNoDefault This is a string that can be null with no default
      * @param parameterStringNullableWithDefault This is a string that can be null with default
+     * @param overrides Additional request headers
      * @throws ApiError
      */
     public static callToTestOrderOfParams(parameterStringWithNoDefault: CallToTestOrderOfParamsData['parameterStringWithNoDefault'], parameterOptionalStringWithDefault: CallToTestOrderOfParamsData['parameterOptionalStringWithDefault'] = 'Hello World!', parameterOptionalStringWithEmptyDefault: CallToTestOrderOfParamsData['parameterOptionalStringWithEmptyDefault'] = '', parameterOptionalStringWithNoDefault?: CallToTestOrderOfParamsData['parameterOptionalStringWithNoDefault'], parameterStringWithDefault: CallToTestOrderOfParamsData['parameterStringWithDefault'] = 'Hello World!', parameterStringWithEmptyDefault: CallToTestOrderOfParamsData['parameterStringWithEmptyDefault'] = '', parameterStringNullableWithNoDefault?: CallToTestOrderOfParamsData['parameterStringNullableWithNoDefault'], parameterStringNullableWithDefault: CallToTestOrderOfParamsData['parameterStringNullableWithDefault'] = null): CancelablePromise<void> {
@@ -79,7 +83,7 @@ export class DefaultsService {
                 parameterStringNullableWithNoDefault,
                 parameterStringNullableWithDefault
             }
-        });
+        }, overrides);
     }
     
 }

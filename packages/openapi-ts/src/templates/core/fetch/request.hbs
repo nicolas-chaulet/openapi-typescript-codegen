@@ -54,15 +54,22 @@ import type { OpenAPIConfig } from './OpenAPI';
 
 {{>functions/catchErrorCodes}}
 
+/**
+ * Request options for additional headers
+ */
+export type RequestOptions = {
+	headers?: Record<string, string>;
+};
 
 /**
  * Request method
  * @param config The OpenAPI configuration object
  * @param options The request options from the service
+ * @param overrides The request options for additional headers
  * @returns CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}>
  * @throws ApiError
  */
-export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}> => {
+export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, overrides?: RequestOptions | undefined): CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}> => {
 	return new CancelablePromise(async (resolve, reject, onCancel) => {
 		try {
 			const url = getUrl(config, options);
@@ -70,8 +77,10 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): C
 			const body = getRequestBody(options);
 			const headers = await getHeaders(config, options);
 
+			const mergedHeaders = { ...headers, ...overrides?.headers };
+
 			if (!onCancel.isCancelled) {
-				let response = await sendRequest(config, options, url, body, formData, headers, onCancel);
+				let response = await sendRequest(config, options, url, body, formData, mergedHeaders, onCancel);
 
 				for (const fn of config.interceptors.response._fns) {
 					response = await fn(response);

@@ -55,16 +55,23 @@ import type { OpenAPIConfig } from './OpenAPI';
 
 {{>functions/catchErrorCodes}}
 
+/**
+ * Request options for additional headers
+ */
+export type RequestOptions = {
+	headers?: Record<string, string>;
+};
 
 /**
  * Request method
  * @param config The OpenAPI configuration object
  * @param options The request options from the service
+ * @param overrides The request options for additional headers
  * @param axiosClient The axios client instance to use
  * @returns CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}>
  * @throws ApiError
  */
-export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, axiosClient: AxiosInstance = axios): CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}> => {
+export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, overrides?: RequestOptions | undefined, axiosClient: AxiosInstance = axios): CancelablePromise<{{#equals @root.$config.services.response 'response'}}ApiResult<T>{{else}}T{{/equals}}> => {
 	return new CancelablePromise(async (resolve, reject, onCancel) => {
 		try {
 			const url = getUrl(config, options);
@@ -72,8 +79,10 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
 			const body = getRequestBody(options);
 			const headers = await getHeaders(config, options);
 
+			const mergedHeaders = { ...headers, ...overrides?.headers };
+
 			if (!onCancel.isCancelled) {
-				let response = await sendRequest<T>(config, options, url, body, formData, headers, onCancel, axiosClient);
+				let response = await sendRequest<T>(config, options, url, body, formData, mergedHeaders, onCancel, axiosClient);
 
 				for (const fn of config.interceptors.response._fns) {
 					response = await fn(response);

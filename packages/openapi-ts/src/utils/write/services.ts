@@ -52,7 +52,12 @@ const toOperationParamType = (
   operation: Operation,
 ): FunctionParameter[] => {
   if (!operation.parameters.length) {
-    return [];
+    return [
+      {
+        name: 'overrides?',
+        type: 'RequestOptions | undefined',
+      },
+    ];
   }
 
   const config = getConfig();
@@ -77,6 +82,10 @@ const toOperationParamType = (
         default: isRequired ? undefined : {},
         name: 'data',
         type: importedType,
+      },
+      {
+        name: 'overrides?',
+        type: 'RequestOptions | undefined',
       },
     ];
   }
@@ -154,6 +163,9 @@ const toOperationComment = (operation: Operation) => {
           `@param ${p.name} ${p.description ? escapeComment(p.description) : ''}`,
       );
     }
+  }
+  if (operation) {
+    params.push('@param overrides Additional request headers');
   }
   const comment = [
     operation.deprecated && '@deprecated',
@@ -308,7 +320,7 @@ const toOperationStatements = (client: Client, operation: Operation) => {
   if (config.client === 'angular') {
     return [
       compiler.return.functionCall({
-        args: ['OpenAPI', 'this.http', options],
+        args: ['OpenAPI', 'this.http', options, 'overrides'],
         name: '__request',
       }),
     ];
@@ -316,7 +328,7 @@ const toOperationStatements = (client: Client, operation: Operation) => {
 
   return [
     compiler.return.functionCall({
-      args: ['OpenAPI', options],
+      args: ['OpenAPI', options, 'overrides'],
       name: '__request',
     }),
   ];
@@ -499,6 +511,7 @@ export const processServices = async ({
         { alias: '__request', name: 'request' },
         './core/request',
       );
+      files.services?.addImport({ name: 'RequestOptions' }, './core/request');
     }
   }
 
