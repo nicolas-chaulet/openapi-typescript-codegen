@@ -87,6 +87,15 @@ importers:
       '@hey-api/client-axios':
         specifier: workspace:*
         version: link:../../packages/client-axios
+      '@radix-ui/react-form':
+        specifier: 0.0.3
+        version: 0.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-icons':
+        specifier: 1.3.0
+        version: 1.3.0(react@18.3.1)
+      '@radix-ui/themes':
+        specifier: 3.0.5
+        version: 3.0.5(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: 1.7.2
         version: 1.7.2
@@ -115,6 +124,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.3.0
         version: 4.3.0(vite@5.2.11(@types/node@20.12.12)(less@4.2.0)(sass@1.71.1)(terser@5.31.0))
+      autoprefixer:
+        specifier: 10.4.19
+        version: 10.4.19(postcss@8.4.38)
       eslint:
         specifier: 9.3.0
         version: 9.3.0
@@ -124,9 +136,15 @@ importers:
       eslint-plugin-react-refresh:
         specifier: 0.4.7
         version: 0.4.7(eslint@9.3.0)
+      postcss:
+        specifier: 8.4.38
+        version: 8.4.38
       prettier:
         specifier: 3.2.5
         version: 3.2.5
+      tailwindcss:
+        specifier: 3.4.3
+        version: 3.4.3(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -202,10 +220,6 @@ importers:
         version: 5.2.11(@types/node@20.12.12)(less@4.2.0)(sass@1.71.1)(terser@5.31.0)
 
   packages/client-axios:
-    dependencies:
-      '@hey-api/client-core':
-        specifier: workspace:*
-        version: link:../client-core
     devDependencies:
       axios:
         specifier: 1.7.2
@@ -10628,7 +10642,7 @@ snapshots:
       dom-serializer: 2.0.0
       domhandler: 5.0.3
       htmlparser2: 8.0.2
-      postcss: 8.4.35
+      postcss: 8.4.38
       postcss-media-query-parser: 0.2.3
 
   cross-spawn@5.1.0:
@@ -10645,12 +10659,12 @@ snapshots:
 
   css-loader@6.10.0(webpack@5.90.3(esbuild@0.20.1)):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.35)
-      postcss: 8.4.35
-      postcss-modules-extract-imports: 3.1.0(postcss@8.4.35)
-      postcss-modules-local-by-default: 4.0.5(postcss@8.4.35)
-      postcss-modules-scope: 3.2.0(postcss@8.4.35)
-      postcss-modules-values: 4.0.0(postcss@8.4.35)
+      icss-utils: 5.1.0(postcss@8.4.38)
+      postcss: 8.4.38
+      postcss-modules-extract-imports: 3.1.0(postcss@8.4.38)
+      postcss-modules-local-by-default: 4.0.5(postcss@8.4.38)
+      postcss-modules-scope: 3.2.0(postcss@8.4.38)
+      postcss-modules-values: 4.0.0(postcss@8.4.38)
       postcss-value-parser: 4.2.0
       semver: 7.6.2
     optionalDependencies:
@@ -11665,9 +11679,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.4.35):
+  icss-utils@5.1.0(postcss@8.4.38):
     dependencies:
-      postcss: 8.4.35
+      postcss: 8.4.38
 
   ieee754@1.2.1: {}
 
@@ -12761,26 +12775,26 @@ snapshots:
 
   postcss-media-query-parser@0.2.3: {}
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.4.35):
+  postcss-modules-extract-imports@3.1.0(postcss@8.4.38):
     dependencies:
-      postcss: 8.4.35
+      postcss: 8.4.38
 
-  postcss-modules-local-by-default@4.0.5(postcss@8.4.35):
+  postcss-modules-local-by-default@4.0.5(postcss@8.4.38):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.35)
-      postcss: 8.4.35
+      icss-utils: 5.1.0(postcss@8.4.38)
+      postcss: 8.4.38
       postcss-selector-parser: 6.0.16
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.0(postcss@8.4.35):
+  postcss-modules-scope@3.2.0(postcss@8.4.38):
     dependencies:
-      postcss: 8.4.35
+      postcss: 8.4.38
       postcss-selector-parser: 6.0.16
 
-  postcss-modules-values@4.0.0(postcss@8.4.35):
+  postcss-modules-values@4.0.0(postcss@8.4.38):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.35)
-      postcss: 8.4.35
+      icss-utils: 5.1.0(postcss@8.4.38)
+      postcss: 8.4.38
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -13084,7 +13098,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 8.4.35
+      postcss: 8.4.38
       source-map: 0.6.1
 
   resolve@1.22.8:
@@ -13584,7 +13598,7 @@ snapshots:
       is-glob: 4.0.3
       jiti: 1.21.0
       lilconfig: 2.1.0
-      micromatch: 4.0.6
+      micromatch: 4.0.7
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.1
@@ -13915,7 +13929,7 @@ snapshots:
   vite@5.1.7(@types/node@20.12.12)(less@4.2.0)(sass@1.71.1)(terser@5.29.1):
     dependencies:
       esbuild: 0.19.12
-      postcss: 8.4.35
+      postcss: 8.4.38
       rollup: 4.18.0
     optionalDependencies:
       '@types/node': 20.12.12

@@ -1,6 +1,6 @@
 {
   "name": "@hey-api/client-axios",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "description": "Typesafe Axios client for your @hey-api/openapi-ts types",
@@ -16,21 +16,37 @@
   "keywords": [
     "axios",
     "client",
-    "codegen",
-    "generator",
+    "http",
     "javascript",
     "openapi",
     "react",
+    "rest",
     "svelte",
     "swagger",
     "typescript",
     "vue"
   ],
+  "types": "dist/node/index.d.ts",
+  "main": "dist/node/index.cjs",
+  "module": "dist/node/index.mjs",
   "exports": {
-    "import": "./dist/node/index.mjs",
-    "require": "./dist/node/index.cjs",
-    "types": "./dist/node/index.d.ts"
+    ".": {
+      "import": {
+        "types": "./dist/node/index.d.ts",
+        "default": "./dist/node/index.mjs"
+      },
+      "require": {
+        "types": "./dist/node/index.d.ts",
+        "default": "./dist/node/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build-bundle": "rollup --config rollup.config.ts --configPlugin typescript",
     "build-types-check": "tsc --project tsconfig.check.json",
@@ -46,12 +62,6 @@
     "test:watch": "vitest watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
-  },
-  "engines": {
-    "node": "^18.0.0 || >=20.0.0"
-  },
-  "dependencies": {
-    "@hey-api/client-core": "workspace:*"
   },
   "peerDependencies": {
     "axios": ">= 1.0.0 < 2"

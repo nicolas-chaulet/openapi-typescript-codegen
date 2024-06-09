@@ -1,12 +1,12 @@
 <div align="center">
   <img width="150" height="150" src="https://heyapi.vercel.app/logo.png" alt="Logo">
-  <h1 align="center"><b>Fetch API Client</b></h1>
-  <p align="center">🚀 Typesafe Fetch API client for your Hey API types.</p>
+  <h1 align="center"><b>Axios Client</b></h1>
+  <p align="center">🚀 Typesafe Axios client for your Hey API types.</p>
 </div>
 
-Plug and play Fetch API wrapper for `@hey-api/openapi-ts` generator.
+Plug and play Axios wrapper for `@hey-api/openapi-ts` generator.
 
-[Live demo](https://stackblitz.com/edit/hey-api-client-fetch-example?file=openapi-ts.config.ts,src%2Fclient%2Fschemas.gen.ts,src%2Fclient%2Fservices.gen.ts,src%2Fclient%2Ftypes.gen.ts,src%2FApp.tsx)
+[Live demo](https://stackblitz.com/edit/hey-api-client-axios-example?file=openapi-ts.config.ts,src%2Fclient%2Fschemas.gen.ts,src%2Fclient%2Fservices.gen.ts,src%2Fclient%2Ftypes.gen.ts,src%2FApp.tsx)
 
 ## Features
 

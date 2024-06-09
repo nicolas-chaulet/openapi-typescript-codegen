@@ -1,61 +1,11 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.flex {
-  align-items: center;
-  display: flex;
-  padding: 1em 0;
-}
-
-.pet-name {
-  padding: 0 1em;
-}
-
-.button {
-  border: 1px solid #444;
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0.5rem 2rem;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-.h1 {
-  font-size: 1.2em;
-  line-height: 1.1;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .logo {
   height: 4em;
   will-change: filter;
   transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -64,39 +14,5 @@ body {
   }
   to {
     transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.container {
-  align-items: center;
-  display: flex;
-  grid-gap: 1em;
-  text-align: center;
-}
-
-.openapi-ts {
-  color: #444;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
