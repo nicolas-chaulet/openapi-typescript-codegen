@@ -8,8 +8,8 @@ import server from './scripts/server'
 describe('client.axios', () => {
   beforeAll(async () => {
     cleanup('client/axios')
-    await generateClient('client/axios', 'v3', 'axios', false, 'ApiClient')
-    compileWithTypescript('client/axios')
+    await generateClient('client/axios', 'v3', 'axios', false, 'ApiClient', true)
+    compileWithTypescript('client/axios', {overrides: {compilerOptions: {module: 'esnext', 'moduleResolution': 'nodenext'}}})
     await server.start('client/axios')
   }, 40000)
 

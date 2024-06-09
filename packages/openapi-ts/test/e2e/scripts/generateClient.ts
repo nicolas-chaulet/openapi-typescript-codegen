@@ -6,16 +6,20 @@ export const generateClient = async (
   version: string,
   client: Config['client'],
   useOptions: boolean = false,
-  name?: string
+  name?: string,
+  addFileExtension?: boolean,
 ) => {
   await createClient({
     client,
     input: `./test/spec/${version}.json`,
     name,
-    output: `./test/e2e/generated/${dir}/`,
+    output: {
+      addFileExtension,
+      path: `./test/e2e/generated/${dir}/`,
+    },
     services: {
       asClass: true,
     },
-    useOptions
+    useOptions,
   })
 }

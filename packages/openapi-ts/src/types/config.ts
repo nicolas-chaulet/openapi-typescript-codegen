@@ -60,6 +60,11 @@ export interface ClientConfig {
          * The relative location of the output directory
          */
         path: string;
+
+        /**
+         * Add file extension to generated files (e.g. '.js') for moduleResolution compatibility (node16/nodenext)
+         */
+        addFileExtension?: boolean;
       };
   /**
    * Path to custom request file
