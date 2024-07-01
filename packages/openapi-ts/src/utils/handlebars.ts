@@ -31,6 +31,7 @@ import functionGetFormData from '../templates/core/functions/getFormData.hbs';
 import functionGetQueryString from '../templates/core/functions/getQueryString.hbs';
 import functionGetUrl from '../templates/core/functions/getUrl.hbs';
 import functionIsBlob from '../templates/core/functions/isBlob.hbs';
+import functionIsDate from '../templates/core/functions/isDate.hbs';
 import functionIsFormData from '../templates/core/functions/isFormData.hbs';
 import functionIsString from '../templates/core/functions/isString.hbs';
 import functionIsStringWithValue from '../templates/core/functions/isStringWithValue.hbs';
@@ -153,6 +154,10 @@ export const registerHandlebarTemplates = (): Templates => {
   Handlebars.registerPartial(
     'functions/isString',
     Handlebars.template(functionIsString),
+  );
+  Handlebars.registerPartial(
+    'functions/isDate',
+    Handlebars.template(functionIsDate),
   );
   Handlebars.registerPartial(
     'functions/isStringWithValue',

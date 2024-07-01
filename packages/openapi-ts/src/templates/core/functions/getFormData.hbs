@@ -5,6 +5,8 @@ export const getFormData = (options: ApiRequestOptions): FormData | undefined =>
 		const process = (key: string, value: unknown) => {
 			if (isString(value) || isBlob(value)) {
 				formData.append(key, value);
+			} else if (isDate(value)) {
+				formData.append(key, value.toISOString());
 			} else {
 				formData.append(key, JSON.stringify(value));
 			}
