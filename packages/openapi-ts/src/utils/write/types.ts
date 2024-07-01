@@ -259,15 +259,14 @@ const processServiceTypes = ({
       methodMap.$ref = operation.name;
 
       if (hasReq) {
-        const bodyParameter = operation.parameters
-          .filter((parameter) => parameter.in === 'body')
-          .sort(sorterByName)[0];
+        const bodyParameter = operation.parametersBody;
+
         const bodyParameters: OperationParameter = {
+          mediaType: null,
           ...emptyModel,
           ...bodyParameter,
           in: 'body',
           isRequired: bodyParameter ? bodyParameter.isRequired : false,
-          // mediaType: null,
           name: 'body',
           prop: 'body',
         };
