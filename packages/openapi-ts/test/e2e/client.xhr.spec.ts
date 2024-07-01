@@ -25,7 +25,7 @@ describe.skip('client.xhr', () => {
       TOKEN: tokenRequest,
       USERNAME: undefined
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.headers.authorization).toBe('Bearer MY_TOKEN')
   })
@@ -37,7 +37,7 @@ describe.skip('client.xhr', () => {
       TOKEN: undefined,
       USERNAME: 'username'
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.headers.authorization).toBe('Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
   })
@@ -46,7 +46,7 @@ describe.skip('client.xhr', () => {
     const { ApiClient } = await import('./generated/client/xhr/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.complex.complexTypes({
+    const result = await client.complexService.complexTypes({
       first: {
         second: {
           third: 'Hello World!'
@@ -60,7 +60,7 @@ describe.skip('client.xhr', () => {
     const { ApiClient } = await import('./generated/client/xhr/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.parameters.callWithParameters(
+    const result = await client.parametersService.callWithParameters(
       'valueHeader',
       'valueQuery',
       'valueForm',
@@ -78,7 +78,7 @@ describe.skip('client.xhr', () => {
     try {
       const { ApiClient } = await import('./generated/client/xhr/index.js')
       const client = new ApiClient()
-      const promise = client.simple.getCallWithoutParametersAndResponse()
+      const promise = client.simpleService.getCallWithoutParametersAndResponse()
       setTimeout(() => {
         promise.cancel()
       }, 10)
@@ -94,7 +94,7 @@ describe.skip('client.xhr', () => {
     try {
       const { ApiClient } = await import('./generated/client/xhr/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(500)
+      await client.errorService.testErrorCode(500)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,
@@ -125,7 +125,7 @@ describe.skip('client.xhr', () => {
     try {
       const { ApiClient } = await import('./generated/client/xhr/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(599)
+      await client.errorService.testErrorCode(599)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,

@@ -25,7 +25,7 @@ describe('client.node', () => {
       TOKEN: tokenRequest,
       USERNAME: undefined
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     expect(tokenRequest.mock.calls.length).toBe(1)
     // @ts-ignore
     expect(result.headers.authorization).toBe('Bearer MY_TOKEN')
@@ -38,7 +38,7 @@ describe('client.node', () => {
       TOKEN: undefined,
       USERNAME: 'username'
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.headers.authorization).toBe('Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
   })
@@ -47,7 +47,7 @@ describe('client.node', () => {
     const { ApiClient } = await import('./generated/client/node/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.complex.complexTypes({
+    const result = await client.complexService.complexTypes({
       first: {
         second: {
           third: 'Hello World!'
@@ -61,7 +61,7 @@ describe('client.node', () => {
     const { ApiClient } = await import('./generated/client/node/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.parameters.callWithParameters(
+    const result = await client.parametersService.callWithParameters(
       'valueHeader',
       'valueQuery',
       'valueForm',
@@ -79,7 +79,7 @@ describe('client.node', () => {
     try {
       const { ApiClient } = await import('./generated/client/node/index.js')
       const client = new ApiClient()
-      const promise = client.simple.getCallWithoutParametersAndResponse()
+      const promise = client.simpleService.getCallWithoutParametersAndResponse()
       setTimeout(() => {
         promise.cancel()
       }, 10)
@@ -95,7 +95,7 @@ describe('client.node', () => {
     try {
       const { ApiClient } = await import('./generated/client/node/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(500)
+      await client.errorService.testErrorCode(500)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,
@@ -126,7 +126,7 @@ describe('client.node', () => {
     try {
       const { ApiClient } = await import('./generated/client/node/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(599)
+      await client.errorService.testErrorCode(599)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,

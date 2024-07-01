@@ -25,7 +25,7 @@ describe('client.fetch', () => {
       TOKEN: tokenRequest,
       USERNAME: undefined
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.headers.authorization).toBe('Bearer MY_TOKEN')
   })
@@ -37,7 +37,7 @@ describe('client.fetch', () => {
       TOKEN: undefined,
       USERNAME: 'username'
     })
-    const result = await client.simple.getCallWithoutParametersAndResponse()
+    const result = await client.simpleService.getCallWithoutParametersAndResponse()
     // @ts-ignore
     expect(result.headers.authorization).toBe('Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
   })
@@ -46,7 +46,7 @@ describe('client.fetch', () => {
     const { ApiClient } = await import('./generated/client/fetch/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.complex.complexTypes({
+    const result = await client.complexService.complexTypes({
       first: {
         second: {
           third: 'Hello World!'
@@ -60,7 +60,7 @@ describe('client.fetch', () => {
     const { ApiClient } = await import('./generated/client/fetch/index.js')
     const client = new ApiClient()
     // @ts-ignore
-    const result = await client.parameters.callWithParameters(
+    const result = await client.parametersService.callWithParameters(
       'valueHeader',
       'valueQuery',
       'valueForm',
@@ -76,7 +76,7 @@ describe('client.fetch', () => {
   it('support blob response data', async () => {
     const { ApiClient } = await import('./generated/client/fetch/index.js')
     const client = new ApiClient()
-    const result = await client.fileResponse.fileResponse('test')
+    const result = await client.fileResponseService.fileResponse('test')
     expect(result).toBeDefined()
   })
 
@@ -85,7 +85,7 @@ describe('client.fetch', () => {
     try {
       const { ApiClient } = await import('./generated/client/fetch/index.js')
       const client = new ApiClient()
-      const promise = client.simple.getCallWithoutParametersAndResponse()
+      const promise = client.simpleService.getCallWithoutParametersAndResponse()
       setTimeout(() => {
         promise.cancel()
       }, 10)
@@ -101,7 +101,7 @@ describe('client.fetch', () => {
     try {
       const { ApiClient } = await import('./generated/client/fetch/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(500)
+      await client.errorService.testErrorCode(500)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,
@@ -132,7 +132,7 @@ describe('client.fetch', () => {
     try {
       const { ApiClient } = await import('./generated/client/fetch/index.js')
       const client = new ApiClient()
-      await client.error.testErrorCode(599)
+      await client.errorService.testErrorCode(599)
     } catch (err) {
       error = JSON.stringify({
         body: err.body,
@@ -162,7 +162,7 @@ describe('client.fetch', () => {
   it('it should parse query params', async () => {
     const { ApiClient } = await import('./generated/client/fetch/index.js')
     const client = new ApiClient()
-    const result = await client.parameters.postCallWithOptionalParam({
+    const result = await client.parametersService.postCallWithOptionalParam({
       page: 0,
       size: 1,
       sort: ['location']

@@ -31,29 +31,29 @@ type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 
 export class ApiClient {
 
-	public readonly collectionFormat: CollectionFormatService;
-	public readonly complex: ComplexService;
-	public readonly default: DefaultService;
-	public readonly defaults: DefaultsService;
-	public readonly deprecated: DeprecatedService;
-	public readonly descriptions: DescriptionsService;
-	public readonly duplicate: DuplicateService;
-	public readonly error: ErrorService;
-	public readonly fileResponse: FileResponseService;
-	public readonly formData: FormDataService;
-	public readonly header: HeaderService;
-	public readonly multipart: MultipartService;
-	public readonly multipleTags1: MultipleTags1Service;
-	public readonly multipleTags2: MultipleTags2Service;
-	public readonly multipleTags3: MultipleTags3Service;
-	public readonly noContent: NoContentService;
-	public readonly nonAsciiÆøåÆøÅöôêÊ: NonAsciiÆøåÆøÅöôêÊService;
-	public readonly parameters: ParametersService;
-	public readonly requestBody: RequestBodyService;
-	public readonly response: ResponseService;
-	public readonly simple: SimpleService;
-	public readonly types: TypesService;
-	public readonly upload: UploadService;
+	public readonly collectionFormatService: CollectionFormatService;
+	public readonly complexService: ComplexService;
+	public readonly defaultService: DefaultService;
+	public readonly defaultsService: DefaultsService;
+	public readonly deprecatedService: DeprecatedService;
+	public readonly descriptionsService: DescriptionsService;
+	public readonly duplicateService: DuplicateService;
+	public readonly errorService: ErrorService;
+	public readonly fileResponseService: FileResponseService;
+	public readonly formDataService: FormDataService;
+	public readonly headerService: HeaderService;
+	public readonly multipartService: MultipartService;
+	public readonly multipleTags1Service: MultipleTags1Service;
+	public readonly multipleTags2Service: MultipleTags2Service;
+	public readonly multipleTags3Service: MultipleTags3Service;
+	public readonly noContentService: NoContentService;
+	public readonly nonAsciiÆøåÆøÅöôêÊservice: NonAsciiÆøåÆøÅöôêÊService;
+	public readonly parametersService: ParametersService;
+	public readonly requestBodyService: RequestBodyService;
+	public readonly responseService: ResponseService;
+	public readonly simpleService: SimpleService;
+	public readonly typesService: TypesService;
+	public readonly uploadService: UploadService;
 
 	public readonly request: BaseHttpRequest;
 
@@ -74,28 +74,28 @@ export class ApiClient {
       },
 		});
 
-		this.collectionFormat = new CollectionFormatService(this.request);
-		this.complex = new ComplexService(this.request);
-		this.default = new DefaultService(this.request);
-		this.defaults = new DefaultsService(this.request);
-		this.deprecated = new DeprecatedService(this.request);
-		this.descriptions = new DescriptionsService(this.request);
-		this.duplicate = new DuplicateService(this.request);
-		this.error = new ErrorService(this.request);
-		this.fileResponse = new FileResponseService(this.request);
-		this.formData = new FormDataService(this.request);
-		this.header = new HeaderService(this.request);
-		this.multipart = new MultipartService(this.request);
-		this.multipleTags1 = new MultipleTags1Service(this.request);
-		this.multipleTags2 = new MultipleTags2Service(this.request);
-		this.multipleTags3 = new MultipleTags3Service(this.request);
-		this.noContent = new NoContentService(this.request);
-		this.nonAsciiÆøåÆøÅöôêÊ = new NonAsciiÆøåÆøÅöôêÊService(this.request);
-		this.parameters = new ParametersService(this.request);
-		this.requestBody = new RequestBodyService(this.request);
-		this.response = new ResponseService(this.request);
-		this.simple = new SimpleService(this.request);
-		this.types = new TypesService(this.request);
-		this.upload = new UploadService(this.request);
+		this.collectionFormatService = new CollectionFormatService(this.request);
+		this.complexService = new ComplexService(this.request);
+		this.defaultService = new DefaultService(this.request);
+		this.defaultsService = new DefaultsService(this.request);
+		this.deprecatedService = new DeprecatedService(this.request);
+		this.descriptionsService = new DescriptionsService(this.request);
+		this.duplicateService = new DuplicateService(this.request);
+		this.errorService = new ErrorService(this.request);
+		this.fileResponseService = new FileResponseService(this.request);
+		this.formDataService = new FormDataService(this.request);
+		this.headerService = new HeaderService(this.request);
+		this.multipartService = new MultipartService(this.request);
+		this.multipleTags1Service = new MultipleTags1Service(this.request);
+		this.multipleTags2Service = new MultipleTags2Service(this.request);
+		this.multipleTags3Service = new MultipleTags3Service(this.request);
+		this.noContentService = new NoContentService(this.request);
+		this.nonAsciiÆøåÆøÅöôêÊservice = new NonAsciiÆøåÆøÅöôêÊService(this.request);
+		this.parametersService = new ParametersService(this.request);
+		this.requestBodyService = new RequestBodyService(this.request);
+		this.responseService = new ResponseService(this.request);
+		this.simpleService = new SimpleService(this.request);
+		this.typesService = new TypesService(this.request);
+		this.uploadService = new UploadService(this.request);
 	}
 }

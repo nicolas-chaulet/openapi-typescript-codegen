@@ -57,7 +57,7 @@ type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 export class {{{@root.$config.name}}} {
 
 	{{#each services}}
-	public readonly {{{camelCase name}}}: {{{transformServiceName name}}};
+	public readonly {{{camelCase (transformServiceName name)}}}: {{{transformServiceName name}}};
 	{{/each}}
 
 	public readonly request: BaseHttpRequest;
@@ -80,7 +80,7 @@ export class {{{@root.$config.name}}} {
 		});
 
 		{{#each services}}
-		this.{{{camelCase name}}} = new {{{transformServiceName name}}}(this.request);
+		this.{{{camelCase (transformServiceName name)}}} = new {{{transformServiceName name}}}(this.request);
 		{{/each}}
 	}
 }
